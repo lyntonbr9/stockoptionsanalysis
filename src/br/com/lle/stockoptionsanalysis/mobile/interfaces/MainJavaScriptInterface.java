@@ -20,18 +20,24 @@ public class MainJavaScriptInterface {
 		this.activity = activity;
 	}
 	
+	private double rounding(double valor, int casasDecimais) {
+		BigDecimal bd = new BigDecimal(valor).setScale(casasDecimais, BigDecimal.ROUND_HALF_EVEN);
+		return bd.doubleValue();
+	}
+	
 	@JavascriptInterface
 	public String resultado(boolean ehCall, double precoExercicio, double inicioAcao, double fimAcao,
 					double intervaloAcao, int duracao, double volatilidade, double taxaJuros) {
-		List<CoordenadaTO> coordenadas = calculaBS(ehCall, precoExercicio,inicioAcao, fimAcao, intervaloAcao, duracao, 1, 10, volatilidade, taxaJuros);
+		volatilidade = rounding((double) volatilidade / 100, 4);
+		taxaJuros = rounding((double) taxaJuros / 100, 4);
+		List<CoordenadaTO> coordenadas = calculaBS(ehCall, precoExercicio,inicioAcao, fimAcao, intervaloAcao, duracao, volatilidade, taxaJuros);
 		return Constants.gson.toJson(coordenadas);
 //		return "[{\"x\":10,\"y\":30},{\"x\":20,\"y\":25},{\"x\":30,\"y\":20}]";
 	}
 	
 	// calcula o BS
 	public static List<CoordenadaTO> calculaBS(boolean ehCall, double precoExerc, double inicioAcao, double fimAcao, 
-								double intervaloAcao, int duracao, int ultimoDia, int intervaloDia,
-								double volatilidade, double taxaDeJuros) {
+								double intervaloAcao, int duracao, double volatilidade, double taxaDeJuros) {
 		List<CoordenadaTO> coordenadas = new ArrayList<CoordenadaTO>();
 
 		for (double acao= inicioAcao; acao <= fimAcao; acao+=intervaloAcao) {
@@ -60,12 +66,14 @@ public class MainJavaScriptInterface {
 	
 	@JavascriptInterface
 	public String getPrecoOpcao(boolean ehCall, double precoAcao, double precoExerc, 
-			int qtdDiasVenc, double volatilidade, double taxaDeJuros) {
+			int qtdDiasVenc, double volatilidade, double taxaJuros) {
 		try {
+			volatilidade = rounding((double) volatilidade / 100, 4);
+			taxaJuros = rounding((double) taxaJuros / 100, 4);
 			BigDecimal pa = new BigDecimal(precoAcao).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			BigDecimal pe = new BigDecimal(precoExerc).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-			BigDecimal volat = new BigDecimal(volatilidade).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-			BigDecimal txJuros = new BigDecimal(taxaDeJuros).setScale(4, BigDecimal.ROUND_HALF_EVEN);
+			BigDecimal volat = new BigDecimal(volatilidade).setScale(4, BigDecimal.ROUND_HALF_EVEN);
+			BigDecimal txJuros = new BigDecimal(taxaJuros).setScale(4, BigDecimal.ROUND_HALF_EVEN);
 			BigDecimal po = BlackScholes.blackScholes(ehCall, pa, pe, qtdDiasVenc, volat, txJuros).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			return String.valueOf(po);
 		} catch (Exception e) {
@@ -76,13 +84,15 @@ public class MainJavaScriptInterface {
 	
 	@JavascriptInterface
 	public String getVolatilidade(boolean ehCall, double precoAcao, double precoExerc, 
-			double precoOpcao, int qtdDiasVenc, double taxaDeJuros) {
+			double precoOpcao, int qtdDiasVenc, double taxaJuros) {
 		try {
+			taxaJuros = rounding((double) taxaJuros / 100, 4);
 			BigDecimal pa = new BigDecimal(precoAcao).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			BigDecimal pe = new BigDecimal(precoExerc).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			BigDecimal po = new BigDecimal(precoOpcao).setScale(2, BigDecimal.ROUND_HALF_EVEN);
-			BigDecimal txJuros = new BigDecimal(taxaDeJuros).setScale(4, BigDecimal.ROUND_HALF_EVEN);
-			BigDecimal volat = BlackScholes.calculaVolatilidade(ehCall, pa, pe, qtdDiasVenc, po, txJuros).setScale(2, BigDecimal.ROUND_HALF_EVEN);
+			BigDecimal txJuros = new BigDecimal(taxaJuros).setScale(4, BigDecimal.ROUND_HALF_EVEN);
+			BigDecimal volat = BlackScholes.calculaVolatilidade(ehCall, pa, pe, qtdDiasVenc, po, txJuros);
+			volat = volat.multiply(new BigDecimal(100)).setScale(2, BigDecimal.ROUND_HALF_EVEN);
 			return String.valueOf(volat);
 		} catch (Exception e) {
 			e.printStackTrace();

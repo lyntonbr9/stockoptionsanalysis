@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.mobile-1.4.4.js"></script>
+		<script src="js/jquery.mask.js"></script>
 		<script src="js/json2.js"></script>
 		<script src="js/canvasjs.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.css">
@@ -37,10 +38,14 @@
 		<script>
 			var WINDOW_LOCATION='';
 			var operacoesASalvar = [];
-			var TAXA_JUROS = 0.1125;
+			var TAXA_JUROS = 11.25;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			
+			$(document).ready(function(){
+			  $('.decimal').mask('0000.00', {reverse: true});
+			  $('.decimal4').mask('0.0000', {reverse: true});
+			});
 			function openLoading() {
 				$.mobile.loading( "show", {
 			            text: "Carregando...",
@@ -384,7 +389,7 @@
 					</tr>
 					<tr>
 						<td>Preço:</td>
-						<td><input type="number" data-clear-btn="true" id="precoOperAtivo" value=""></td>
+						<td><input type="number" class="decimal" step="0.01" data-clear-btn="true" id="precoOperAtivo" value=""></td>
 					</tr>
 					<tr>
 						<td>Quantidade:</td>
@@ -429,11 +434,11 @@
 					<tbody>
 						<tr>
 							<td>Preço Ação:</td>
-							<td><input id="paBS" value="20.0" type="number" /></td>
+							<td><input id="paBS" value="20.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Preço Exer. Opção:</td>
-							<td><input id="peBS" value="21.0" type="number" /></td>
+							<td><input id="peBS" value="21.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Qtd Dias Venc.:</td>
@@ -441,15 +446,15 @@
 						</tr>
 						<tr>
 							<td>Preço Opção:</td>
-							<td><input id="poBS" value="" type="number" /></td>
+							<td><input id="poBS" value="" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Volatilidade:</td>
-							<td><input id="volatBS" value="" type="number" /></td>
+							<td><input id="volatBS" value="" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Taxa de Juros:</td>
-							<td><input id="txjurosBS" value="0.1125" type="number" /></td>
+							<td><input id="txjurosBS" value="11.75" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>
@@ -494,27 +499,27 @@
 					<tbody>
 						<tr>
 							<td>Preço Exer. Opção:</td>
-							<td><input id="pe" value="21.0" type="number" /></td>
+							<td><input id="pe" value="21.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Preço Início Ação:</td>
-							<td><input id="pia" value="19.0" type="number" /></td>
+							<td><input id="pia" value="19.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Preço Final Ação:</td>
-							<td><input id="pfa" value="25.0" type="number" /></td>
+							<td><input id="pfa" value="25.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Intervalo da Ação:</td>
-							<td><input id="interv" value="0.5" type="number" /></td>
+							<td><input id="interv" value="0.50" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Volatilidade:</td>
-							<td><input id="volat" value="0.27" type="number" /></td>
+							<td><input id="volat" value="27.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>Taxa de Juros:</td>
-							<td><input id="txjuros" value="0.1125" type="number" /></td>
+							<td><input id="txjuros" value="11.75" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td align="center">
