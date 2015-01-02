@@ -11,9 +11,12 @@ import android.webkit.WebView;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
+import java.util.List;
 
+import br.com.lle.sata.mobile.core.to.CotacaoAtivoTO;
 import br.com.lle.stockoptionsanalysis.R;
-import br.com.lle.stockoptionsanalysis.mobile.interfaces.MainJavaScriptInterface;
+import br.com.lle.stockoptionsanalysis.mobile.dao.AlertaAtivoDAO;
+import br.com.lle.stockoptionsanalysis.mobile.interfaces.js.MainJavaScriptInterface;
 import br.com.lle.stockoptionsanalysis.mobile.webkit.StockOptionsChromeClient;
 
 
@@ -38,6 +41,8 @@ public class StockOptionsVWMainActivity extends Activity {
 			MainJavaScriptInterface jsMain = new MainJavaScriptInterface(this);
 			this.webView.addJavascriptInterface(jsMain, "JSInterface");
 
+            AlertaAtivoDAO aad = new AlertaAtivoDAO(this);
+            List<CotacaoAtivoTO> cotacoes = aad.getCotacoesAtivo();
             getRegId();
 //			this.webView.loadUrl("file:///android_asset/line.html");
 			if (savedInstanceState == null) {

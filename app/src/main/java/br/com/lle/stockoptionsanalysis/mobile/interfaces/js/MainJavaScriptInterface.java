@@ -1,4 +1,4 @@
-package br.com.lle.stockoptionsanalysis.mobile.interfaces;
+package br.com.lle.stockoptionsanalysis.mobile.interfaces.js;
 
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
@@ -7,10 +7,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.br.sata.mobile.core.interfaces.IBuscaCotacao;
-import br.com.br.sata.mobile.core.robo.BVMFBuscaCotacao;
-import br.com.br.sata.mobile.core.robo.BuscaCotacao;
-import br.com.br.sata.mobile.core.util.BlackScholes;
+import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacao;
+import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacao;
+import br.com.lle.sata.mobile.core.robo.BuscaCotacao;
+import br.com.lle.sata.mobile.core.util.BlackScholes;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;
 import br.com.lle.stockoptionsanalysis.mobile.to.CoordenadaTO;
 
