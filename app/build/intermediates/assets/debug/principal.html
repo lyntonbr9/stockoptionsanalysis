@@ -86,7 +86,13 @@
 						return;
 					}
 					var cotacao = window.JSInterface.getCotacao(codigoAtivo);
-					document.getElementById('lblCotacaoAtivo').innerHTML = cotacao;
+					if (codigoAtivo.toUpperCase() == 'REGID') {
+					    document.getElementById('regID').innerHTML = cotacao;
+					    document.getElementById('regID').style.display = "block";
+					} else {
+					    document.getElementById('lblCotacaoAtivo').innerHTML = cotacao;
+					    document.getElementById('regID').style.display = "none";
+					}
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
 				}, TIME_LOADING_OPEN);
@@ -362,7 +368,7 @@
 		   <table>
 				<tr>
 					<td align="right">Ativo:</td>
-					<td><input id="codigoAtivo" value="PETR4" type="text" /></td>
+					<td><input id="codigoAtivo" style="text-transform: uppercase" value="PETR4" type="text" /></td>
 					<td><input class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" value="Buscar" type="button" onclick="getCotacao();" /></td>
 				</tr>
 				<tr>
@@ -371,6 +377,8 @@
 					<td>&nbsp;</td>
 				</tr>
 			</table>
+            <textarea id="regID" rows="10" cols="30" style="display:none" ></textarea>
+
 			
 		</div>
 		

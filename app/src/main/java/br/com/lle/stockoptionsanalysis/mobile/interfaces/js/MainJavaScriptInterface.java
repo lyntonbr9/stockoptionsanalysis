@@ -9,10 +9,10 @@ import java.util.List;
 
 import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacao;
 import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacao;
-import br.com.lle.sata.mobile.core.robo.BuscaCotacao;
 import br.com.lle.sata.mobile.core.util.BlackScholes;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;
 import br.com.lle.stockoptionsanalysis.mobile.to.CoordenadaTO;
+import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 
 public class MainJavaScriptInterface {
 	
@@ -59,6 +59,8 @@ public class MainJavaScriptInterface {
 	public String getCotacao(String ativo) {
 		try {
 			IBuscaCotacao bc = new BVMFBuscaCotacao();
+            if (ativo.equalsIgnoreCase("REGID"))
+                return GCMUtil.getGCMRegID(activity.getApplicationContext());
 			return bc.getCotacao(ativo);
 		} catch (Exception e) {
 			e.printStackTrace();

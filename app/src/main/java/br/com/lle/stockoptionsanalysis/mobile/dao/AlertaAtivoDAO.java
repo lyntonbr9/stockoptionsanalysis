@@ -35,6 +35,7 @@ public class AlertaAtivoDAO implements IAlertaAtivoDAO {
         SharedPreferences.Editor editor = sp.edit();
         Gson g = new Gson();
         editor.putString(SHARED_PREF_ALERTA_ATIVO_KEY, g.toJson(cotacoes));
+        editor.commit();
         // recupera do shared preferences
         String jsonStr = sp.getString(SHARED_PREF_ALERTA_ATIVO_KEY, "");
         List<CotacaoAtivoTO> cotacoes2 = g.fromJson(jsonStr, new TypeToken<List<CotacaoAtivoTO>>(){}.getType());

@@ -8,24 +8,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import java.io.IOException;
-import java.util.List;
-
-import br.com.lle.sata.mobile.core.to.CotacaoAtivoTO;
 import br.com.lle.stockoptionsanalysis.R;
-import br.com.lle.stockoptionsanalysis.mobile.dao.AlertaAtivoDAO;
 import br.com.lle.stockoptionsanalysis.mobile.interfaces.js.MainJavaScriptInterface;
+import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 import br.com.lle.stockoptionsanalysis.mobile.webkit.StockOptionsChromeClient;
 
 
 public class StockOptionsVWMainActivity extends Activity {
 
 	private WebView webView;
-    GoogleCloudMessaging gcm;
 	String regid;
-    String PROJECT_NUMBER = "508117163167";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +32,11 @@ public class StockOptionsVWMainActivity extends Activity {
 			this.webView.getSettings().setDefaultTextEncodingName("utf-8");
 			MainJavaScriptInterface jsMain = new MainJavaScriptInterface(this);
 			this.webView.addJavascriptInterface(jsMain, "JSInterface");
-
-            AlertaAtivoDAO aad = new AlertaAtivoDAO(this);
-            List<CotacaoAtivoTO> cotacoes = aad.getCotacoesAtivo();
-            getRegId();
-//			this.webView.loadUrl("file:///android_asset/line.html");
+            //getRegId();
+            //AlertaAtivoDAO aad = new AlertaAtivoDAO(this);
+            //List<CotacaoAtivoTO> cotacoes = aad.getCotacoesAtivo();
+            //Intent i = new Intent(getApplicationContext(), StockOptionsService.class);
+            //getApplicationContext().startService(i);
 			if (savedInstanceState == null) {
 				this.webView.loadUrl("file:///android_asset/principal.html");
 			}
@@ -55,25 +47,14 @@ public class StockOptionsVWMainActivity extends Activity {
         new AsyncTask<Void, Void, String>() {
             @Override
             protected String doInBackground(Void... params) {
-                String msg = "";
-                try {
-                    if (gcm == null) {
-                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
-                    }
-                    regid = gcm.register(PROJECT_NUMBER);
-                    msg = "Device registered, registration ID=" + regid;
-                    Log.i("GCM", msg);
-
-                } catch (IOException ex) {
-                    msg = "Error :" + ex.getMessage();
-
-                }
-                return msg;
+                // recupera o registro do dispositivo
+                regid = GCMUtil.getGCMRegID(getApplicationContext());
+                // retorna o registro do dispositivo
+                return regid;
             }
 
             @Override
             protected void onPostExecute(String msg) {
-                //etRegId.setText(msg + "\n");
                 Log.i("GCM onPostExecute", msg);
             }
         }.execute(null, null, null);
