@@ -1,5 +1,7 @@
 package br.com.lle.stockoptionsanalysis.mobile.interfaces.js;
 
+import static br.com.lle.stockoptionsanalysis.mobile.Constants.gson;
+
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
 
@@ -8,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacao;
+import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacaoOpcao;
 import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacao;
+import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacaoOpcao;
+import br.com.lle.sata.mobile.core.to.CotacaoOpcaoTO;
 import br.com.lle.sata.mobile.core.util.BlackScholes;
-import br.com.lle.stockoptionsanalysis.mobile.Constants;
 import br.com.lle.stockoptionsanalysis.mobile.to.CoordenadaTO;
 import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 
@@ -33,7 +37,7 @@ public class MainJavaScriptInterface {
 		volatilidade = rounding((double) volatilidade / 100, 4);
 		taxaJuros = rounding((double) taxaJuros / 100, 4);
 		List<CoordenadaTO> coordenadas = calculaBS(ehCall, precoExercicio,inicioAcao, fimAcao, intervaloAcao, duracao, volatilidade, taxaJuros);
-		return Constants.gson.toJson(coordenadas);
+		return gson.toJson(coordenadas);
 //		return "[{\"x\":10,\"y\":30},{\"x\":20,\"y\":25},{\"x\":30,\"y\":20}]";
 	}
 	
@@ -103,5 +107,23 @@ public class MainJavaScriptInterface {
 		}
 		return "-8888,88";
 	}
+
+    @JavascriptInterface
+    public String getCotacoesOpcoes(String codigoAtivo, boolean ehCall) {
+        List<CotacaoOpcaoTO> cotacoesOpcoes = new ArrayList<CotacaoOpcaoTO>();
+        IBuscaCotacaoOpcao bco = new BVMFBuscaCotacaoOpcao();
+        cotacoesOpcoes = bco.getCotacoesOpcoes(codigoAtivo, ehCall);
+        return gson.toJson(cotacoesOpcoes);
+        /*
+        CotacaoOpcaoTO co = new CotacaoOpcaoTO();
+        co.setCodigo("PETRR14");
+        co.setPrecoExercicio("14,00");
+        co.setFechamento("21,25");
+        co.setValorExtrinseco("2,50");
+        co.setValorIntrinseco("0,50");
+        co.setVolatilidadeImplicita(0.50);
+        cotacoesOpcoes.add(co);
+        */
+    }
 
 }

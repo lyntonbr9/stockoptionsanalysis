@@ -3,56 +3,37 @@
 	<head>
 		<title>Stock Options Analysis</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-		<script src="js/jquery.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.css">
+        <script src="js/jquery.js"></script>
 		<script src="js/jquery.mobile-1.4.4.js"></script>
 		<script src="js/jquery.mask.js"></script>
 		<script src="js/json2.js"></script>
 		<script src="js/canvasjs.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.4.css">
-		<style>
-			body, .ui-table-columntoggle-btn.ui-mini { font-size: 11px; }
-			.ui-table-columntoggle-btn { display: none; }
-			.OperacaoPositiva {
-				color: green;
-			}
-			.OperacaoNegativa {
-				color: red;
-			}
-			.selecionado {
-				border-style: solid;
-				border-color: blue;
-			}
-			.spinner {
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				margin-left: -50px; /* half width of the spinner gif */
-				margin-top: -50px; /* half height of the spinner gif */
-				text-align:center;
-				z-index:1234;
-				overflow: auto;
-				width: 100px; /* width of the spinner gif */
-				height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
-			}
-		</style>
+        <script src="js/moment.js"></script>
+        <script src="js/soa.js"></script>
+        <script src="js/soa-table.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/soa-estilo.css" />
 		<script>
-			var WINDOW_LOCATION='';
-			var operacoesASalvar = [];
-			var TAXA_JUROS = 11.25;
+			var WINDOW_LOCATION = "";
+			var COTACOES_OPCOES;
+			var TAXA_JUROS = 13.25;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			
 			$(document).ready(function(){
-			  $('.decimal').mask('0000.00', {reverse: true});
-			  $('.decimal4').mask('0.0000', {reverse: true});
+			    // define as mascaras nos campos
+				$('.decimal').mask('0000.00', {reverse: true});
+				$('.decimal4').mask('0.0000', {reverse: true});
+				// define as taxas de juros
+				$("#txjurosBS").val(TAXA_JUROS);
+				$("#txjuros").val(TAXA_JUROS);
+				// esconde a div de opcoes
+				$("#divOpcoes").hide();
+				$("#btnOpcoes").hide();
 			});
+			
 			function openLoading() {
-				$.mobile.loading( "show", {
-			            text: "Carregando...",
-						textVisible: true,
-						theme: "z",
-						html: ""
-			    });
+				$.mobile.loading( "show", {text: "Carregando...", textVisible: true, theme: "z", html: ""});
 			}
 			
 			function closeLoading() {
@@ -60,7 +41,6 @@
 			}
 			
 			function ocultarContainer() {
-				//document.getElementById('chartContainer').style.display = 'none';
 				var myNode = document.getElementById("chartContainer");
 				while (myNode.firstChild) {
 					myNode.removeChild(myNode.firstChild);
@@ -68,38 +48,171 @@
 				document.getElementById('voltar').style.display = 'none';
 				document.getElementById('camposPreenchimento').style.display = 'block';
 			}
+			
 			function abrirContainer() {
-				//document.getElementById('chartContainer').style.display = 'block';
 				document.getElementById('voltar').style.display = 'block';
 				document.getElementById('camposPreenchimento').style.display = 'none';
 			}
 			
 			function getCotacao() {
 				document.getElementById('lblCotacaoAtivo').innerHTML = "";
+				$("#divOpcoes").hide();
+                $("#btnOpcoes").hide();
 				openLoading();
 				setTimeout(function() {
-					var codigoAtivo = document.getElementById('codigoAtivo').value;
+					var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
 					if (!codigoAtivo) {
 						alert('É necessário preencher o código do ativo');
 						// fecha o loading
 						setTimeout(closeLoading, TIME_LOADING_CLOSE);
 						return;
 					}
-					var cotacao = window.JSInterface.getCotacao(codigoAtivo);
+					var cotacao = soa.getCotacao(codigoAtivo);
+
 					if (codigoAtivo.toUpperCase() == 'REGID') {
 					    document.getElementById('regID').innerHTML = cotacao;
 					    document.getElementById('regID').style.display = "block";
 					} else {
 					    document.getElementById('lblCotacaoAtivo').innerHTML = cotacao;
 					    document.getElementById('regID').style.display = "none";
+					    if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5') {
+					        $("#btnOpcoes").show();
+					    }
 					}
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
 				}, TIME_LOADING_OPEN);
 			}
-			
+
+			function recarregarCotacoesOpcoes() {
+			    var ehCall = isCallSelected('tipoOpc');
+			    carregarCotacoesOpcoes(ehCall, false);
+			}
+
+			function carregarCotacoesOpcoes(ehCall, verificarCache) {
+			    var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
+			    var tipoOpcao = (ehCall) ? "_CALL" : "_PUT";
+			    var nomeAtrLS = "soa_" + codigoAtivo + tipoOpcao;
+			    // limpa a tabela
+                soaTB.clearTable("tbOpcoes");
+			    // eh a busca de uma acao
+			    if (codigoAtivo.length <= 5) {
+			        if(!localStorage[nomeAtrLS] || !verificarCache) {
+			            alert('Vai atualizar a lista de opções');
+                        // recupera as cotacoes das opcoes da acao
+                        COTACOES_OPCOES = soa.getCotacoesOpcoes(codigoAtivo, ehCall);
+                        alert('Terminou de atualizar a lista de opções');
+                        if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+                            // salva no local storage
+                            localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
+                        }
+			        } else {
+                        COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
+			        }
+			        if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+			            // cria a tabela
+                        soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
+                        // mostra a div de opcoes
+                        $("#divOpcoes").show();
+			        }
+			    } else {
+			        COTACOES_OPCOES = {};
+			        // esconde a div de opcoes
+			        $("#divOpcoes").hide();
+			    }
+
+			    setTimeout(atualizarCotacoesOpcoes, 500);
+			}
+
+			function atualizarCotacoesOpcoes() {
+			    var precoAcao = document.getElementById('lblCotacaoAtivo').innerHTML;
+			    //alert(precoAcao);
+                for (i = 0; i < COTACOES_OPCOES.length; i++) {
+                //for (i = 0; i < 4; i++) {
+                    //var i = 0;
+                    var linha = i + 1;
+                    var co = COTACOES_OPCOES[i];
+                    co.fechamento = soa.getCotacao(co.codigo);
+                    var prazoVenc = getPrazoVencimento(co.dataVencimento);
+                    $("." + "PRAZO_" + linha).html(prazoVenc + " d");
+                    $("." + "PR_" + linha).html(co.fechamento);
+                    $("." + "VE_" + linha).html(round(getVE(precoAcao, co)));
+                    $("." + "VI_" + linha).html(round(getVI(precoAcao, co)));
+                    var volatilidadeImp = getVolatilidade(precoAcao, co, prazoVenc);
+                    $("." + "VOLAT_" + linha).html(volatilidadeImp);
+                    $("." + "VR_" + linha).html(getVR(precoAcao, volatilidadeImp, prazoVenc, co.ehCall));
+                }
+            }
+
+            function round(valor) {
+                return Math.round(valor * 100) / 100;
+            }
+
+            function getPrazoVencimento(dataVenc) {
+                var strDataAtual = moment().format('DD/MM/YYYY');
+                var dataAtual = moment(strDataAtual, 'DD/MM/YYYY');
+                var dataParaVencimento = moment(dataVenc, 'DD/MM/YYYY');
+                //alert(dataAtual);
+                //alert(dataParaVencimento);
+                //alert(dataParaVencimento.diff(dataAtual, 'days'));
+                return dataParaVencimento.diff(dataAtual, 'days');
+            }
+
+            function getVE(precoAcao, cotacaoOpcao) {
+                var VI = getVI(precoAcao, cotacaoOpcao);
+                var valorOpcao = Number(cotacaoOpcao.fechamento.replace(",","."))
+                //calcula o VE
+                return valorOpcao - VI > 0.0 ? valorOpcao - VI : 0.0;
+            }
+
+            function getVI(precoAcao, cotacaoOpcao) {
+                precoAcao = Number(precoAcao.replace(",","."));
+                var precoExercicioOpcao = Number(cotacaoOpcao.precoExercicio.replace(",","."));
+                //alert(precoAcao);
+                //alert(precoExercicioOpcao);
+                //alert(cotacaoOpcao.ehCall);
+                if (cotacaoOpcao.ehCall) //SE FOR CALL
+                    if (precoAcao >= precoExercicioOpcao)
+                        return precoAcao - precoExercicioOpcao;
+                    else
+                        return 0.0;
+                else //SE FOR PUT
+                    if (precoAcao <= precoExercicioOpcao)
+                        return precoExercicioOpcao - precoAcao;
+                    else
+                        return 0.0;
+            }
+
+            function getVolatilidade(precoAcao, cotacaoOpcao, qtdDiasVenc) {
+                var pa = parseFloat(precoAcao.replace(",","."));
+                var pe = parseFloat(cotacaoOpcao.precoExercicio.replace(",","."));
+                var precoOpcao = parseFloat(cotacaoOpcao.fechamento.replace(",","."));
+                var volat = soa.getVolatilidade(cotacaoOpcao.ehCall, pa, pe, precoOpcao, qtdDiasVenc, TAXA_JUROS);
+                return volat;
+            }
+
+            function getVR(precoAcao, volatImp, qtdDiasVenc, ehCall) {
+                precoAcao = parseFloat(precoAcao.replace(",","."));
+                //alert(precoAcao);
+                var porDia = Math.sqrt(252);
+                //alert(porDia);
+                var porDiasVenc = Math.sqrt(qtdDiasVenc);
+                //alert(porDiasVenc);
+                volatImp = volatImp/100;
+                //alert(volatImp);
+                var calculo = (volatImp/porDia)*porDiasVenc;
+                //alert(calculo);
+                if(ehCall)
+                    calculo = 1 - calculo;
+                else
+                    calculo = 1 + calculo;
+                //alert(calculo);
+                //alert(round(precoAcao*calculo));
+                return round(precoAcao*calculo);
+            }
+
 			function getBS(qtdDias) {
-				var ehCall = isCall('tipoOpcao');
+				var ehCall = isCallSelected('tipoOpcao');
 				var pe = parseFloat(document.getElementById("pe").value);
 				var pia = parseFloat(document.getElementById("pia").value);
 				var pfa = parseFloat(document.getElementById("pfa").value);
@@ -112,7 +225,7 @@
 				return dados;
 			}
 			
-			function isCall(elementName) {
+			function isCallSelected(elementName) {
 				var opcoes = document.getElementsByName(elementName);
 				var indice = 0;
 				for (var i = 0; i < opcoes.length; i++) {
@@ -127,7 +240,7 @@
 			function calcularVolatPrecoOp(calcularPrecoOp) {
 				openLoading();
 				setTimeout(function() {
-					var ehCall = isCall('tipoOpcaoBS');
+					var ehCall = isCallSelected('tipoOpcaoBS');
 					var pa = parseFloat(document.getElementById("paBS").value);
 					if (!pa) {
 						alert('É necessário preencher o preço da ação');
@@ -172,7 +285,7 @@
 							return;
 						}
 						// recupera a volatilidade que está sendo praticada
-						var volat = window.JSInterface.getVolatilidade(ehCall, pa, pe, parseFloat(poObj.value), qtdDiasVenc, txjuros);
+						var volat = soa.getVolatilidade(ehCall, pa, pe, parseFloat(poObj.value), qtdDiasVenc, txjuros);
 						volatObj.value = volat;
 					}
 					// fecha o loading
@@ -181,10 +294,11 @@
 			}
 			 
 			window.onload = function() {
-				WINDOW_LOCATION=window.location.href;
+				WINDOW_LOCATION = window.location.href;
 				ocultarContainer();
 			}
-			mostrarGrafico = function() {
+
+			var mostrarGrafico = function() {
 				
 				var pe = parseFloat(document.getElementById("pe").value);
 				var pia = parseFloat(document.getElementById("pia").value);
@@ -262,33 +376,7 @@
 				
 				abrirContainer();
 			}
-			
-			function getOperacoesAtivoBD() {
-				var operacoes = [];
-				operacoes.push({tipo: {codigo: 1, descricao: "C"}, codigoAtivo: "PETR4", dataVencimento: "", quantidade: 100, precoOperacao: 20.9, precoAtual: 21.57});
-				operacoes.push({tipo: {codigo: 1, descricao: "C"}, codigoAtivo: "PETRJ49", dataVencimento: "20/10/2014", quantidade: 100, precoOperacao: 1.01, precoAtual: 3.25});
-				operacoes.push({tipo: {codigo: 1, descricao: "C"}, codigoAtivo: "PETRK51", dataVencimento: "20/11/2014", quantidade: 100, precoOperacao: 3.10, precoAtual: 1.52});
-				montarOperacoesAtivoTable(operacoes);
-				//getTableOperacoesAtivoValues();
-				
-			}
-			
-			function getTableOperacoesAtivoValues() {
-				var table = document.getElementById('tbAtivo');
-				for (var i = 1; i < table.rows.length; i++) {
-					var operacao = {};
-					operacao.tipo = {};
-					operacao.tipo.descricao = table.rows[i].cells[0].innerHTML;
-					operacao.codigoAtivo = table.rows[i].cells[1].innerHTML;
-					operacao.dataVencimento = table.rows[i].cells[2].innerHTML;
-					operacao.quantidade = table.rows[i].cells[3].innerHTML;
-					operacao.precoOperacao = table.rows[i].cells[4].innerHTML;
-					//alert(JSON.stringify(operacao));
-					operacoesASalvar.push(operacao);
-				}
-				alert(JSON.stringify(operacoesASalvar));
-			}
-			
+
 			function montarOperacoesAtivoTable(operacoes) {
 				for (var i = 0; i < operacoes.length; i++) {
 					var operacao = operacoes[i];
@@ -296,20 +384,7 @@
 							operacao.quantidade, operacao.precoOperacao, operacao.precoAtual);
 				}
 			}
-			
-			// quando o documento estiver pronto
-			$(document).ready(function () {
-				// recupera as operacoes salvas na base de dados
-				getOperacoesAtivoBD();
-				$(".addRowAtivo").click(function () {
-					addOperacoesAtivoTableRow('tbAtivo', 'C', 'PETRJ50', '', 100, 20.5, 19.57);
-					getTableOperacoesAtivoValues();
-				});
-				$("#tbAtivo").on('click', '.rmRowAtivo', function() {
-					$(this).parent().parent().remove();
-				});
-			});
-			
+
 			function addOperacoesAtivoTableRow(tableId, operacao, ativo, dataVencimento, quantidade, precoOperacao, precoAtual) {
 				var saldoAtual = precoAtual - precoOperacao;
 				saldoAtual = saldoAtual.toFixed(2);
@@ -326,7 +401,6 @@
 					'</tr>');
 				//$("#"+ tableId).table("refresh");
 			}
-			
 		</script>
 	</head>
 	<body>
@@ -345,44 +419,74 @@
 		<div data-role="content">
 			<!--
 			<a href="javascript:void(0);" class="addRowAtivo" >Adicionar</a>
-			<table data-role="table" id="tbAtivo" data-mode="columntoggle" class="ui-responsive table-stroke">
-			 <thead>
-			   <tr>
-				 <th>Op.</th>
-				 <th>Ativo</th>
-				 <th>Data Venc.</th>
-				 <th>Qtd.</th>
-				 <th><abbr title="Preço Oper.">Preço Oper.</abbr></th>
-				 <th><abbr title="Preço Atual">Preço Atual</abbr></th>
-				 <th>Saldo</th>
-				 <th></th>
-			   </tr>
-			 </thead>
-			 <tbody>
-			 </tbody>
-		   </table>
-		   <br />
 		   <input type="button" value="Adicionar Operação" onclick="window.location=WINDOW_LOCATION+'#pgAdicionarOperacao';" /> 
-		   <input type="button" value="Salvar" onclick="" /> 
-		   -->
+		   <input type="button" value="Salvar" onclick="" />
+		    -->
 		   <table>
 				<tr>
 					<td align="right">Ativo:</td>
-					<td><input id="codigoAtivo" style="text-transform: uppercase" value="PETR4" type="text" /></td>
+					<td><input id="codigoAtivo" style="text-transform: uppercase" value="PETR4" type="text" size="10" /></td>
 					<td><input class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" value="Buscar" type="button" onclick="getCotacao();" /></td>
 				</tr>
 				<tr>
 					<td>Preço do Ativo:</td>
-					<td><label id="lblCotacaoAtivo"></label></td>
-					<td>&nbsp;</td>
+					<td>
+                        <label id="lblCotacaoAtivo"></label>
+                    </td>
+					<td>
+                        <div id="btnOpcoes">
+                            <fieldset data-role="controlgroup" data-type="horizontal">
+                                <input type="radio" name="tipoOpc" value="1" id="tipoOperCompra2" onclick="carregarCotacoesOpcoes(true, true);" />
+                                <label for="tipoOperCompra2">Call</label>
+                                <input type="radio" name="tipoOpc" value="0" id="tipoOperVenda2" onclick="carregarCotacoesOpcoes(false, true);"/>
+                                <label for="tipoOperVenda2">Put</label>
+                            </fieldset>
+                        </div>
+                    </td>
 				</tr>
 			</table>
+
             <textarea id="regID" rows="10" cols="30" style="display:none" ></textarea>
+            <br />
 
-			
+            <div id="divOpcoes">
+                <table data-role="table" id="tbOpcoes" data-mode="columntoggle" class="ui-responsive table-stroke">
+                    <thead>
+                    <tr>
+                        <th>Opção</th>
+                        <th>Strike</th>
+                        <th>Prazo</th>
+                        <th>PR</th>
+                        <th>VE</th>
+                        <th>VI</th>
+                        <th>Volat.</th>
+                        <th>VR</th>
+                        <!--
+                        <th data-priority="1"><abbr title="Vol. Cob.">Vol. Cob.</abbr></th>
+                        <th data-priority="2"><abbr title="Data Venc.">Data Venc.</abbr></th>
+                        -->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--
+                    <tr>
+                        <td>PETRF14</td>
+                        <td>14,00</td>
+                        <td>23</td>
+                        <td>5,00</td>
+                        <td>-0,50</td>
+                        <td>3,45</td>
+                        <td>50%</td>
+                        <td>14,21</td>
+                    </tr>
+                    -->
+                    </tbody>
+                </table>
+                <br/>
+                <input class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" value="Atualizar Opções" type="button" onclick="recarregarCotacoesOpcoes();" />
+            </div>
+            <!-- <a href="javascript:void(0);" class="addRowAtivo" >Adicionar</a> -->
 		</div>
-		
-
 	</div>
 	
 	<div data-role="page" id="pgAdicionarOperacao">
@@ -462,7 +566,7 @@
 						</tr>
 						<tr>
 							<td>Taxa de Juros:</td>
-							<td><input id="txjurosBS" value="11.75" type="number" class="decimal" step="0.01" /></td>
+							<td><input id="txjurosBS" value="" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td>
@@ -510,11 +614,11 @@
 							<td><input id="pe" value="21.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
-							<td>Preço Início Ação:</td>
+							<td>Início Intervalo Ação:</td>
 							<td><input id="pia" value="19.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
-							<td>Preço Final Ação:</td>
+							<td>Fim Intervalo Ação:</td>
 							<td><input id="pfa" value="25.00" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
@@ -527,7 +631,7 @@
 						</tr>
 						<tr>
 							<td>Taxa de Juros:</td>
-							<td><input id="txjuros" value="11.75" type="number" class="decimal" step="0.01" /></td>
+							<td><input id="txjuros" value="" type="number" class="decimal" step="0.01" /></td>
 						</tr>
 						<tr>
 							<td align="center">

@@ -1,7 +1,7 @@
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\classes\debug
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-f90f321111100430706673cd21a6cfa57209ce6f.jar
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-8b73087b25c17e4545f4e24dea40aa87afc9d0b4.jar
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-ba8157f165e6ea1786ce400f5b85a7ca67b9803c.jar
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-1bf17b053b8148d719c0e00144e6dc7cb1bc9f29.jar
-C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-d5858b15837d4138fb72dbebaff6d4a82bcd61cb.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\classes\debug
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-f90f321111100430706673cd21a6cfa57209ce6f.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-02cfbfac6a735a7b3b3e41c813808b0189b47705.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-252cbd0e8605d7efe0a7666f5490c91a8471571f.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-255d433f74805131185599d7836b940b29ecfd2d.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar
