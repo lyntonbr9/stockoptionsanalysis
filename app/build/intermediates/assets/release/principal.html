@@ -121,27 +121,36 @@
 			        $("#divOpcoes").hide();
 			    }
 
-			    setTimeout(atualizarCotacoesOpcoes, 500);
+			    //setTimeout(atualizarCotacoesOpcoes, 500);
+			    atualizarCotacoesOpcoes();
 			}
 
 			function atualizarCotacoesOpcoes() {
 			    var precoAcao = document.getElementById('lblCotacaoAtivo').innerHTML;
 			    //alert(precoAcao);
                 for (i = 0; i < COTACOES_OPCOES.length; i++) {
-                //for (i = 0; i < 4; i++) {
+                    //for (i = 0; i < 4; i++) {
                     //var i = 0;
-                    var linha = i + 1;
-                    var co = COTACOES_OPCOES[i];
-                    co.fechamento = soa.getCotacao(co.codigo);
-                    var prazoVenc = getPrazoVencimento(co.dataVencimento);
-                    $("." + "PRAZO_" + linha).html(prazoVenc + " d");
-                    $("." + "PR_" + linha).html(co.fechamento);
-                    $("." + "VE_" + linha).html(round(getVE(precoAcao, co)));
-                    $("." + "VI_" + linha).html(round(getVI(precoAcao, co)));
-                    var volatilidadeImp = getVolatilidade(precoAcao, co, prazoVenc);
-                    $("." + "VOLAT_" + linha).html(volatilidadeImp);
-                    $("." + "VR_" + linha).html(getVR(precoAcao, volatilidadeImp, prazoVenc, co.ehCall));
+                    setTimeout(function(x,y) {
+                        return function() {
+                            atualizarCotacaoOpcao(x,y);
+                        }
+                    }(i, precoAcao), 100);
                 }
+            }
+
+            function atualizarCotacaoOpcao(i, precoAcao) {
+                var linha = i + 1;
+                var co = COTACOES_OPCOES[i];
+                co.fechamento = soa.getCotacao(co.codigo);
+                var prazoVenc = getPrazoVencimento(co.dataVencimento);
+                $("." + "PRAZO_" + linha).html(prazoVenc + " d");
+                $("." + "PR_" + linha).html(co.fechamento);
+                $("." + "VE_" + linha).html(round(getVE(precoAcao, co)));
+                $("." + "VI_" + linha).html(round(getVI(precoAcao, co)));
+                var volatilidadeImp = getVolatilidade(precoAcao, co, prazoVenc);
+                $("." + "VOLAT_" + linha).html(volatilidadeImp);
+                $("." + "VR_" + linha).html(getVR(precoAcao, volatilidadeImp, prazoVenc, co.ehCall));
             }
 
             function round(valor) {
@@ -194,7 +203,7 @@
             function getVR(precoAcao, volatImp, qtdDiasVenc, ehCall) {
                 precoAcao = parseFloat(precoAcao.replace(",","."));
                 //alert(precoAcao);
-                var porDia = Math.sqrt(252);
+                var porDia = Math.sqrt(365);
                 //alert(porDia);
                 var porDiasVenc = Math.sqrt(qtdDiasVenc);
                 //alert(porDiasVenc);
