@@ -76,7 +76,12 @@
 					    document.getElementById('lblCotacaoAtivo').innerHTML = cotacao;
 					    document.getElementById('regID').style.display = "none";
 					    if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5') {
-					        $("#btnOpcoes").show();
+					    //if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5'
+					    //    || codigoAtivo == 'ABEV3' || codigoAtivo == 'BBAS3'
+					    //    || codigoAtivo == 'BBDC4' || codigoAtivo == 'BVMF3'
+					    //    || codigoAtivo == 'ITUB4' || codigoAtivo == 'CYRE3'
+					    //    || codigoAtivo == 'USIM5' || codigoAtivo == 'ESTC3') {
+					            $("#btnOpcoes").show();
 					    }
 					}
 					// fecha o loading
@@ -89,40 +94,75 @@
 			    carregarCotacoesOpcoes(ehCall, false);
 			}
 
-			function carregarCotacoesOpcoes(ehCall, verificarCache) {
-			    var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
-			    var tipoOpcao = (ehCall) ? "_CALL" : "_PUT";
-			    var nomeAtrLS = "soa_" + codigoAtivo + tipoOpcao;
-			    // limpa a tabela
-                soaTB.clearTable("tbOpcoes");
-			    // eh a busca de uma acao
-			    if (codigoAtivo.length <= 5) {
-			        if(!localStorage[nomeAtrLS] || !verificarCache) {
-			            alert('Vai atualizar a lista de opções');
-                        // recupera as cotacoes das opcoes da acao
-                        COTACOES_OPCOES = soa.getCotacoesOpcoes(codigoAtivo, ehCall);
-                        alert('Terminou de atualizar a lista de opções');
-                        if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
-                            // salva no local storage
-                            localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
-                        }
-			        } else {
-                        COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
-			        }
-			        if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
-			            // cria a tabela
-                        soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
-                        // mostra a div de opcoes
-                        $("#divOpcoes").show();
-			        }
-			    } else {
-			        COTACOES_OPCOES = {};
-			        // esconde a div de opcoes
-			        $("#divOpcoes").hide();
-			    }
+			function simularOpcao(indice) {
+			    console.log("indice: " + indice);
+			    var linha = indice + 1;
+			    var co = COTACOES_OPCOES[indice];
+			    var precoExerc = parseFloat(co.precoExercicio);
+			    $("#pe").val(precoExerc);
+			    var variacao = round(precoExerc*0.3);
+			    $("#pia").val(round(precoExerc - variacao));
+			    $("#pfa").val(round(precoExerc + variacao));
+			    console.log(round(precoExerc - variacao));
+			    console.log($(".VOLAT_" + linha).html());
+			    var volatilidade = $(".VOLAT_" + linha).html();
+			    $("#volat").val(volatilidade);
+			    console.log('co.ehCall: ' + co.ehCall);
+			    $(".rdTipoOpcaoSimulacao input[type='radio'][checked]").removeAttr("checked");
+			    if(co.ehCall) {
+			        //alert($(".rdTipoOpcaoSimulacao input[type='radio']:eq(0)"));
+			        $("#tipoOpcaoCall").click();
+                } else {
+                    //alert($(".rdTipoOpcaoSimulacao input[type='radio']:eq(1)"));
+                    $("#tipoOpcaoPut").click();
+                }
+                //console.log($(".rdTipoOpcaoSimulacao input[type='radio']"));
+                // atualiza o checkboxradio
+                $(".rdTipoOpcaoSimulacao input[type='radio']").checkboxradio("refresh");
+			}
 
-			    //setTimeout(atualizarCotacoesOpcoes, 500);
-			    atualizarCotacoesOpcoes();
+			function carregarCotacoesOpcoes(ehCall, verificarCache) {
+
+			    openLoading();
+				setTimeout(function() {
+                    var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
+                    var tipoOpcao = (ehCall) ? "_CALL" : "_PUT";
+                    var nomeAtrLS = "soa_" + codigoAtivo + tipoOpcao;
+                    // limpa a tabela
+                    soaTB.clearTable("tbOpcoes");
+                    // eh a busca de uma acao
+                    if (codigoAtivo.length <= 5) {
+                        if(!localStorage[nomeAtrLS] || !verificarCache) {
+                            alert('Vai atualizar a lista de opções');
+                            // recupera as cotacoes das opcoes da acao
+                            COTACOES_OPCOES = soa.getCotacoesOpcoes(codigoAtivo, ehCall);
+                            //alert('Terminou de atualizar a lista de opções');
+                            if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+                                // salva no local storage
+                                localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
+                            }
+                        } else {
+                            COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
+                        }
+                        if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+                            // cria a tabela
+                            soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
+                            // mostra a div de opcoes
+                            $("#divOpcoes").show();
+                        }
+                    } else {
+                        COTACOES_OPCOES = {};
+                        // esconde a div de opcoes
+                        $("#divOpcoes").hide();
+                    }
+
+                    // fecha o loading
+					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+
+                    atualizarCotacoesOpcoes();
+
+				}, TIME_LOADING_OPEN);
+
 			}
 
 			function atualizarCotacoesOpcoes() {
@@ -518,7 +558,7 @@
 					</tr>
 					<tr>
 						<td align="right" colspan="2">
-							<fieldset data-role="controlgroup" data-type="horizontal">
+							<fieldset data-role="controlgroup" data-type="horizontal" class="rdTipoOpcao">
 								<input type="radio" name="tipoOper" value="C" id="tipoOperCompra" checked />
 								<label for="tipoOperCompra">Compra</label>
 								<input type="radio" name="tipoOper" value="V" id="tipoOperVenda" />
@@ -644,7 +684,7 @@
 						</tr>
 						<tr>
 							<td align="center">
-								<fieldset data-role="controlgroup" data-type="horizontal">
+								<fieldset data-role="controlgroup" data-type="horizontal" class="rdTipoOpcaoSimulacao">
 									<input type="radio" name="tipoOpcao" value="1" id="tipoOpcaoCall" checked />
 									<label for="tipoOpcaoCall">Call</label>
 									<input type="radio" name="tipoOpcao" value="0" id="tipoOpcaoPut" />
