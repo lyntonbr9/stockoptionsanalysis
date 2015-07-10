@@ -1,6 +1,5 @@
 body, .ui-table-columntoggle-btn.ui-mini { font-size: 11px; }
 
-
 .ui-table-columntoggle-btn { display: none; }
 
 .OperacaoPositiva {
@@ -27,4 +26,32 @@ body, .ui-table-columntoggle-btn.ui-mini { font-size: 11px; }
     overflow: auto;
     width: 100px; /* width of the spinner gif */
     height: 102px; /*hight of the spinner gif +2px to fix IE8 issue */
+}
+
+.Titulo {
+  padding: 10px 10px 10px 10px;
+  font: normal normal normal 20px/normal sans-serif;
+  text-align: center;
+  /*padding: 2px 6px 3px;*/
+  border: 2px outset buttonface;
+  /*font-size: 12.5px;*/
+  display: block;
+  margin: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-bottom-width: 0;
+  background-color: #3388cc;
+  border-color: #3388cc;
+  color: #fff;
+  text-shadow: 0 1px 0 #005599;
+}
+
+.ON {
+  color: #00CC00;
+  text-decoration: underline;
+}
+
+.OFF {
+  color: red;
+  text-decoration: underline;
 }

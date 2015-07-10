@@ -15,19 +15,20 @@ public class StockOptionsChromeClient extends WebChromeClient {
 		super();
 		this.ctx = context;
 	}
+
 	@Override
 	public boolean onJsAlert(WebView view, String url, String message, final android.webkit.JsResult result)
     {
 		new AlertDialog.Builder(ctx)
-		.setTitle(APP_NAME)
-		.setMessage(message)
-		.setPositiveButton(android.R.string.ok, new AlertDialog.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				result.confirm();
-			}
-		}).setCancelable(false)
-		.create()
-		.show();
+            .setTitle(APP_NAME)
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, new AlertDialog.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    result.confirm();
+                }
+            }).setCancelable(false)
+            .create()
+            .show();
 		return true;
     }
 }

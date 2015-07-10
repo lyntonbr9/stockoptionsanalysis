@@ -1,7 +1,5 @@
 package br.com.lle.stockoptionsanalysis.mobile.interfaces.js;
 
-import static br.com.lle.stockoptionsanalysis.mobile.Constants.gson;
-
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
 
@@ -15,11 +13,14 @@ import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacao;
 import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacaoOpcao;
 import br.com.lle.sata.mobile.core.to.CotacaoOpcaoTO;
 import br.com.lle.sata.mobile.core.util.BlackScholes;
+import br.com.lle.stockoptionsanalysis.mobile.Constants;
 import br.com.lle.stockoptionsanalysis.mobile.to.CoordenadaTO;
 import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 
+import static br.com.lle.stockoptionsanalysis.mobile.Constants.gson;
+
 public class MainJavaScriptInterface {
-	
+
 	private Activity activity;
 	
 	public MainJavaScriptInterface(Activity activity) {
@@ -114,16 +115,12 @@ public class MainJavaScriptInterface {
         IBuscaCotacaoOpcao bco = new BVMFBuscaCotacaoOpcao();
         cotacoesOpcoes = bco.getCotacoesOpcoes(codigoAtivo, ehCall);
         return gson.toJson(cotacoesOpcoes);
-        /*
-        CotacaoOpcaoTO co = new CotacaoOpcaoTO();
-        co.setCodigo("PETRR14");
-        co.setPrecoExercicio("14,00");
-        co.setFechamento("21,25");
-        co.setValorExtrinseco("2,50");
-        co.setValorIntrinseco("0,50");
-        co.setVolatilidadeImplicita(0.50);
-        cotacoesOpcoes.add(co);
-        */
+    }
+
+    @JavascriptInterface
+    public void atualizarAlertas(String jsonAlertas) {
+        // atualiza a constante que contém os alertas no formato json
+        Constants.JSON_ALERTAS_STOP = jsonAlertas;
     }
 
 }

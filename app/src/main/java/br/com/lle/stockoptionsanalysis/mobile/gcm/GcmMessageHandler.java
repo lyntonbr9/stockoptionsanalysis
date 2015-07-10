@@ -1,6 +1,5 @@
 package br.com.lle.stockoptionsanalysis.mobile.gcm;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,10 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
+
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import br.com.lle.stockoptionsanalysis.R;
 
+import static br.com.lle.stockoptionsanalysis.mobile.util.LogUtil.log;
+
+@Deprecated
 public class GcmMessageHandler extends IntentService {
 
     String mes;
@@ -36,7 +39,7 @@ public class GcmMessageHandler extends IntentService {
 
         mes = extras.getString("title");
         showNotification();
-        Log.i("GCM", "Received : (" +messageType+")  "+extras.getString("title"));
+        log("GCM: Received : (" + messageType + ")  " + extras.getString("title"));
 
         GcmBroadcastReceiver.completeWakefulIntent(intent);
 

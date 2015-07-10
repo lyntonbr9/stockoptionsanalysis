@@ -14,11 +14,17 @@
         <script src="js/soa-table.js"></script>
         <link rel="stylesheet" type="text/css" href="css/soa-estilo.css" />
 		<script>
-			var WINDOW_LOCATION = "";
+			var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
+			console.log('navigator.userAgent: ' + navigator.userAgent);
+			console.log('IS_MOBILE_RUNNING: ' + IS_MOBILE_RUNNING);
+			//var WINDOW_LOCATION = "";
+			var WINDOW_LOCATION = window.location.href;
 			var COTACOES_OPCOES;
+			var SOA_ALERTS;
 			var TAXA_JUROS = 13.25;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
+			var ATR_SOA_ALERT_LS = "soa_alerts";
 			
 			$(document).ready(function(){
 			    // define as mascaras nos campos
@@ -30,6 +36,8 @@
 				// esconde a div de opcoes
 				$("#divOpcoes").hide();
 				$("#btnOpcoes").hide();
+				// renderiza a tabela de alertas
+				renderizarTabelaAlertas();
 			});
 			
 			function openLoading() {
@@ -81,7 +89,7 @@
 					    //    || codigoAtivo == 'BBDC4' || codigoAtivo == 'BVMF3'
 					    //    || codigoAtivo == 'ITUB4' || codigoAtivo == 'CYRE3'
 					    //    || codigoAtivo == 'USIM5' || codigoAtivo == 'ESTC3') {
-					            $("#btnOpcoes").show();
+							$("#btnOpcoes").show();
 					    }
 					}
 					// fecha o loading
@@ -163,6 +171,60 @@
 
 				}, TIME_LOADING_OPEN);
 
+			}
+			
+			function getSoaAlerts() {
+				// recupera os alertas do localStorage
+				SOA_ALERTS = localStorage[ATR_SOA_ALERT_LS] ? JSON.parse(localStorage[ATR_SOA_ALERT_LS]) : [];
+			}
+			
+			function atualizarAlertas() {
+				// atualiza o local storage
+				localStorage[ATR_SOA_ALERT_LS] = JSON.stringify(SOA_ALERTS);
+				// atualiza os dados de alerta do servico
+				soa.atualizarAlertas(SOA_ALERTS);
+			}
+			
+			function renderizarTabelaAlertas() {
+				getSoaAlerts();
+				// limpa a tabela
+				soaTB.clearTable("tbAlertas");
+				// cria a tabela
+				soaTB.createTableAlertas("tbAlertas", SOA_ALERTS);
+			}
+			
+			function adicionarStop() {
+				var codigoAtivo = $("#codigoAtivoAlerta").val().toUpperCase();
+				var precoStopLow = $("#precoStopLow").val();
+				var precoStopHigh = $("#precoStopHigh").val();
+				if (!codigoAtivo || !precoStopLow || !precoStopHigh) {
+					alert('É necessário preencher todos os campos');
+				}
+				// adiciona no array global
+				SOA_ALERTS[SOA_ALERTS.length] = {
+						codigoAtivo: codigoAtivo,
+						precoStopLow: precoStopLow.replace(",","."),
+						precoStopHigh: precoStopHigh.replace(",","."),
+						habilitado: true
+					};
+				atualizarAlertas();
+				renderizarTabelaAlertas();
+				$("#codigoAtivoAlerta").val("");
+				$("#precoStopLow").val("");
+				$("#precoStopHigh").val("");
+				window.location=WINDOW_LOCATION+'#pgAlertas';
+			}
+			
+			function removerAlerta(indice) {
+				SOA_ALERTS.splice(indice, 1);
+				atualizarAlertas();
+				renderizarTabelaAlertas();
+			}
+			
+			function mudarStatusAlerta(indice) {
+				SOA_ALERTS[indice].habilitado = SOA_ALERTS[indice].habilitado ? false : true;
+				atualizarAlertas();
+				renderizarTabelaAlertas();
 			}
 
 			function atualizarCotacoesOpcoes() {
@@ -268,8 +330,8 @@
 				var interv = parseFloat(document.getElementById("interv").value);
 				var volat = parseFloat(document.getElementById("volat").value);
 				var txjuros = parseFloat(document.getElementById("txjuros").value);
-				//var dados = JSON.parse(window.JSInterface.resultado(21.0, 20.0, 25.0, 0.5, qtdDias, 0.27, 0.09));
-				var dados = JSON.parse(window.JSInterface.resultado(ehCall, pe, pia, pfa, interv, qtdDias, volat, txjuros));
+				//var dados = soa.getResultado(21.0, 20.0, 25.0, 0.5, qtdDias, 0.27, 0.09);
+				var dados = soa.getResultado(ehCall, pe, pia, pfa, interv, qtdDias, volat, txjuros);
 				//console.log(JSON.stringify(dados));
 				return dados;
 			}
@@ -324,7 +386,7 @@
 							return;
 						}
 						// recupera o preço da opção
-						var po = window.JSInterface.getPrecoOpcao(ehCall, pa, pe, qtdDiasVenc, parseFloat(volatObj.value), txjuros);
+						var po = soa.getPrecoOpcao(ehCall, pa, pe, qtdDiasVenc, parseFloat(volatObj.value), txjuros);
 						poObj.value = po;
 					} else {
 						if (!poObj.value) {
@@ -343,7 +405,7 @@
 			}
 			 
 			window.onload = function() {
-				WINDOW_LOCATION = window.location.href;
+				//WINDOW_LOCATION = window.location.href;
 				ocultarContainer();
 			}
 
@@ -359,11 +421,6 @@
 					alert('É necessário preencher todos os campos');
 					return;
 				}
-				//var ctx = document.getElementById("canvas").getContext("2d");
-				//window.myLine = new Chart(ctx).Line(lineChartData, {
-				//	responsive: true
-				//});
-				//alert('entrou');
 				var chart = new CanvasJS.Chart("chartContainer",
 				{
 				  title:{
@@ -466,113 +523,137 @@
 		</div>
 
 		<div data-role="content">
-			<!--
-			<a href="javascript:void(0);" class="addRowAtivo" >Adicionar</a>
-		   <input type="button" value="Adicionar Operação" onclick="window.location=WINDOW_LOCATION+'#pgAdicionarOperacao';" /> 
-		   <input type="button" value="Salvar" onclick="" />
-		    -->
-		   <table>
+			<table>
+				<tbody>
 				<tr>
 					<td align="right">Ativo:</td>
 					<td><input id="codigoAtivo" style="text-transform: uppercase" value="PETR4" type="text" size="10" /></td>
-					<td><input class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" value="Buscar" type="button" onclick="getCotacao();" /></td>
+					<td>
+						<input data-iconpos="notext" data-icon="search" data-inline="true" class="show-page-loading-msg" value="Buscar" type="button" onclick="getCotacao();" />
+					</td>
+					<td>
+						<input data-mini="true" data-icon="alert" data-inline="true" type="button"" value="Alertas" onclick="window.location=WINDOW_LOCATION+'#pgAlertas';" />
+					</td>
 				</tr>
 				<tr>
-					<td>Preço do Ativo:</td>
+					<td align="right">Preço do Ativo:</td>
 					<td>
-                        <label id="lblCotacaoAtivo"></label>
-                    </td>
-					<td>
-                        <div id="btnOpcoes">
-                            <fieldset data-role="controlgroup" data-type="horizontal">
-                                <input type="radio" name="tipoOpc" value="1" id="tipoOperCompra2" onclick="carregarCotacoesOpcoes(true, true);" />
-                                <label for="tipoOperCompra2">Call</label>
-                                <input type="radio" name="tipoOpc" value="0" id="tipoOperVenda2" onclick="carregarCotacoesOpcoes(false, true);"/>
-                                <label for="tipoOperVenda2">Put</label>
-                            </fieldset>
-                        </div>
-                    </td>
+						<label id="lblCotacaoAtivo"></label>
+					</td>
+					<td colspan="2">
+						<div id="btnOpcoes">
+							<fieldset data-role="controlgroup" data-type="horizontal">
+								<input type="radio" name="tipoOpc" value="1" id="tipoOperCompra2" onclick="carregarCotacoesOpcoes(true, true);" />
+								<label for="tipoOperCompra2">Call</label>
+								<input type="radio" name="tipoOpc" value="0" id="tipoOperVenda2" onclick="carregarCotacoesOpcoes(false, true);"/>
+								<label for="tipoOperVenda2">Put</label>
+							</fieldset>
+						</div>
+					</td>
 				</tr>
+				</tbody>
 			</table>
-
+		
             <textarea id="regID" rows="10" cols="30" style="display:none" ></textarea>
-            <br />
 
             <div id="divOpcoes">
+				<input data-mini="true" data-icon="refresh" data-inline="true" type="button" value="Atualizar Opções" onclick="recarregarCotacoesOpcoes();" />
                 <table data-role="table" id="tbOpcoes" data-mode="columntoggle" class="ui-responsive table-stroke">
                     <thead>
-                    <tr>
-                        <th>Opção</th>
-                        <th>Strike</th>
-                        <th>Prazo</th>
-                        <th>PR</th>
-                        <th>VE</th>
-                        <th>VI</th>
-                        <th>Volat.</th>
-                        <th>VR</th>
-                        <!--
-                        <th data-priority="1"><abbr title="Vol. Cob.">Vol. Cob.</abbr></th>
-                        <th data-priority="2"><abbr title="Data Venc.">Data Venc.</abbr></th>
-                        -->
-                    </tr>
+						<tr>
+							<th>Opção</th>
+							<th>Strike</th>
+							<th>Prazo</th>
+							<th>PR</th>
+							<th>VE</th>
+							<th>VI</th>
+							<th>Volat.</th>
+							<th>VR</th>
+							<!--
+							<th data-priority="1"><abbr title="Vol. Cob.">Vol. Cob.</abbr></th>
+							<th data-priority="2"><abbr title="Data Venc.">Data Venc.</abbr></th>
+							-->
+						</tr>
                     </thead>
                     <tbody>
-                    <!--
-                    <tr>
-                        <td>PETRF14</td>
-                        <td>14,00</td>
-                        <td>23</td>
-                        <td>5,00</td>
-                        <td>-0,50</td>
-                        <td>3,45</td>
-                        <td>50%</td>
-                        <td>14,21</td>
-                    </tr>
-                    -->
                     </tbody>
                 </table>
                 <br/>
-                <input class="show-page-loading-msg" data-textonly="false" data-textvisible="true" data-msgtext="" data-inline="true" value="Atualizar Opções" type="button" onclick="recarregarCotacoesOpcoes();" />
             </div>
-            <!-- <a href="javascript:void(0);" class="addRowAtivo" >Adicionar</a> -->
 		</div>
 	</div>
 	
-	<div data-role="page" id="pgAdicionarOperacao">
+	<div data-role="page" id="pgAlertas">
 		<div data-role="content">
-			<table data-role="table" id="tbAdicionarRow" data-mode="columntoggle" class="ui-responsive table-stroke">
+			<font class="Titulo">Alertas de Stop</font>
+			<table data-role="table" id="tbAlertas" data-mode="columntoggle" class="ui-responsive table-stroke">
 				<thead>
 				</thead>
 				<tbody>
 					<tr>
-						<td>Data:</td>
-						<td><input type="date" data-clear-btn="true" id="dataOper" value=""></td>
+						<th>Ativo</th>
+                        <th>Stop Low</th>
+                        <th>Stop High</th>
+                        <th>Status</th>
+                        <th></th>                        
 					</tr>
 					<tr>
-						<td>Preço:</td>
-						<td><input type="number" class="decimal" step="0.01" data-clear-btn="true" id="precoOperAtivo" value=""></td>
+						<td>PETR4</td>
+						<td>9,50</td>
+						<td>10,70</td>
+						<td>ON</td>
+						<td>Lix.</td>
 					</tr>
+				</tbody>
+			</table>
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<tbody>
 					<tr>
-						<td>Quantidade:</td>
-						<td><input type="number" data-clear-btn="true" id="qtdOper" value=""></td>
-					</tr>
+						<td><input type="button" data-icon="plus" value="Adicionar Stop" onclick="window.location=WINDOW_LOCATION+'#pgAdicionarStop';" /></td>
+						<td><input type="button" data-icon="back" value="Cancelar" onclick="window.location=WINDOW_LOCATION+'#pgCarteira';" /></td>
 					<tr>
-						<td align="right" colspan="2">
-							<fieldset data-role="controlgroup" data-type="horizontal" class="rdTipoOpcao">
-								<input type="radio" name="tipoOper" value="C" id="tipoOperCompra" checked />
-								<label for="tipoOperCompra">Compra</label>
-								<input type="radio" name="tipoOper" value="V" id="tipoOperVenda" />
-								<label for="tipoOperVenda">Venda</label>
-							</fieldset>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div data-role="page" id="pgAdicionarStop">
+		<div data-role="content">
+			<table data-role="table" id="tbAdicionarAlertaAtivo" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="4">
+							<font class="Titulo">Stop</font>
 						</td>
 					</tr>
 					<tr>
-						<td>&nbsp;</td><td>&nbsp;</td>
+						<td>&nbsp;</td>
+						<td>Ativo:</td>
+						<td><input id="codigoAtivoAlerta" style="text-transform: uppercase" value="" type="text" size="10" /></td>
+						<td>&nbsp;</td>
 					</tr>
 					<tr>
-						<td><input value="Adicionar Operação" type="button" onclick="" /></td>
-						<td align="center"><input type="button" value="Cancelar" onclick="window.location=WINDOW_LOCATION+'#pgCarteira';" /> </td>
+						<td>&nbsp;</td>
+						<td>Stop Low:</td>
+						<td><input id="precoStopLow" type="number" class="decimal" step="0.01" data-clear-btn="true" value=""></td>
+						<td>&nbsp;</td>
 					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Stop High:</td>
+						<td><input id="precoStopHigh" type="number" class="decimal" step="0.01" data-clear-btn="true" value=""></td>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<tbody>
+					<tr>
+						<td><input type="button" data-icon="plus" value="Adicionar" onclick="adicionarStop();" /></td>
+						<td><input type="button" data-icon="back" value="Cancelar" onclick="window.location=WINDOW_LOCATION+'#pgAlertas';" /></td>
+					<tr>
 				</tbody>
 			</table>
 		</div>

@@ -21,6 +21,28 @@ if(!soaTB) {
                     '</tr>');
             }
         },
+		
+		createTableAlertas: function(idTable, alertas) {
+			var tdStatus = '';
+            for (var i=0, length=alertas.length; i < length; i++) {
+                var al = alertas[i];
+                al.codigoAtivo = al.codigoAtivo || "";
+                al.precoStopLow = al.precoStopLow || "";
+                al.precoStopHigh = al.precoStopHigh || "";
+                al.habilitado = al.habilitado != 'undefined' ? al.habilitado : true;
+				if (al.habilitado)
+					tdStatus = '<td onclick="mudarStatusAlerta(' + i +  ')" class="ON">ON</td>';
+				else	
+					tdStatus = '<td onclick="mudarStatusAlerta(' + i +  ')" class="OFF">OFF</td>';
+                $("#"+idTable).append('<tr>' +
+                    '<td>' + al.codigoAtivo + '</td>' +
+                    '<td>' + al.precoStopLow + '</td>' +
+					'<td>' + al.precoStopHigh + '</td>' +
+                    tdStatus +
+                    '<td><img src="img/lixeira.jpg" style="width:20px;height:20px" onclick="removerAlerta(' + i +  ')" /></td>' +
+                    '</tr>');
+            }
+        },
 
         clearTable: function(idTable) {
             $("#"+idTable).find("tr:gt(0)").remove();

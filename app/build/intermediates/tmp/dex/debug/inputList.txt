@@ -1,5 +1,6 @@
 D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\classes\debug
 D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-f90f321111100430706673cd21a6cfa57209ce6f.jar
+D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-alert-262c7e588055798ccdbef0ced73c2df047356440.jar
 D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-02cfbfac6a735a7b3b3e41c813808b0189b47705.jar
 D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar
 D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-252cbd0e8605d7efe0a7666f5490c91a8471571f.jar

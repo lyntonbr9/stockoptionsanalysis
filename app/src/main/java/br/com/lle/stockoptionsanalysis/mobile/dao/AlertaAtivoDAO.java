@@ -15,6 +15,7 @@ import br.com.lle.stockoptionsanalysis.mobile.interfaces.dao.IAlertaAtivoDAO;
 /**
  * Created by lynton on 01/01/2015.
  */
+@Deprecated
 public class AlertaAtivoDAO implements IAlertaAtivoDAO {
 
     private Context ctx;
@@ -24,6 +25,7 @@ public class AlertaAtivoDAO implements IAlertaAtivoDAO {
     public AlertaAtivoDAO(Context ctx) {
         this.ctx = ctx;
     }
+
     @Override
     public List<CotacaoAtivoTO> getCotacoesAtivo() {
         List<CotacaoAtivoTO> cotacoes = new ArrayList<CotacaoAtivoTO>();
