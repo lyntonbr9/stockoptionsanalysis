@@ -17,8 +17,9 @@ public class Constants {
     // TODO: Corrigir o valor
     public static int HORA_FIM = 18; // termina as 17 hs
 
+    // TODO: Lembrar de verificar o tempo quando for para producao
     public static int QUINZE_MIN_MILIS = 15*60*1000;
 
-    //public static int QUINZE_MIN_MILIS = 10*1000;
+    //public static int QUINZE_MIN_MILIS = 60*1000;
 
 }

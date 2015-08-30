@@ -24,4 +24,5 @@ dependencies {
     compile 'com.google.android.gms:play-services-base:6.5.+'
     compile files('libs/sata-mobile-core.jar')
     compile files('libs/sata-alert.jar')
+    compile files('libs/sata-util.jar')
 }

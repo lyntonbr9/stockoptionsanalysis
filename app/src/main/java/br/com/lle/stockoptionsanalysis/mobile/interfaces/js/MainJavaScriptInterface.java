@@ -14,6 +14,7 @@ import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacaoOpcao;
 import br.com.lle.sata.mobile.core.to.CotacaoOpcaoTO;
 import br.com.lle.sata.mobile.core.util.BlackScholes;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;
+import br.com.lle.stockoptionsanalysis.mobile.alert.StockAlert;
 import br.com.lle.stockoptionsanalysis.mobile.to.CoordenadaTO;
 import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 
@@ -24,7 +25,7 @@ public class MainJavaScriptInterface {
 	private Activity activity;
 	
 	public MainJavaScriptInterface(Activity activity) {
-		this.activity = activity;
+        this.activity = activity;
 	}
 	
 	private double rounding(double valor, int casasDecimais) {
@@ -121,6 +122,9 @@ public class MainJavaScriptInterface {
     public void atualizarAlertas(String jsonAlertas) {
         // atualiza a constante que contém os alertas no formato json
         Constants.JSON_ALERTAS_STOP = jsonAlertas;
+        // verifica se tem algum alerta para notificar
+        StockAlert sa = new StockAlert(this.activity);
+        sa.stockAlert();
     }
 
 }

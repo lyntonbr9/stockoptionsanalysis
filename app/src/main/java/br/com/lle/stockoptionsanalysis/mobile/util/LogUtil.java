@@ -6,7 +6,9 @@ import br.com.lle.stockoptionsanalysis.mobile.Constants;
 /**
  * Created by lynton on 25/01/2015.
  */
-public class LogUtil {
+public final class LogUtil {
+
+    private LogUtil() {}
 
     public static void log(String msg) {
         Log.d(Constants.LOG_APP_NAME, msg);
