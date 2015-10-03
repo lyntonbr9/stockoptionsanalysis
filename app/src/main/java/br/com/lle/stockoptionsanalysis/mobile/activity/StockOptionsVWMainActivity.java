@@ -30,22 +30,22 @@ public class StockOptionsVWMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_stock_options_main);
-			this.webView = (WebView) findViewById(R.id.wvMain);
-			this.webView.setWebChromeClient(new StockOptionsChromeClient(this));
-			this.webView.getSettings().setJavaScriptEnabled(true);
-			this.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-			this.webView.getSettings().setDefaultTextEncodingName("utf-8");
-            this.webView.getSettings().setDomStorageEnabled(true);
-			MainJavaScriptInterface jsMain = new MainJavaScriptInterface(this);
-            this.webView.addJavascriptInterface(jsMain, "JSInterface");
-            iniciarServico();
-            //Intent serviceIntent = new Intent(getApplicationContext(), StockOptionsService.class);
-            //startService(serviceIntent);
-			if (savedInstanceState == null) {
-				//this.webView.loadUrl("file:///android_asset/teste-js.html");
-                this.webView.loadUrl("file:///android_asset/principal.html");
-			}
+        setContentView(R.layout.activity_stock_options_main);
+        this.webView = (WebView) findViewById(R.id.wvMain);
+        this.webView.setWebChromeClient(new StockOptionsChromeClient(this));
+        this.webView.getSettings().setJavaScriptEnabled(true);
+        this.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        this.webView.getSettings().setDefaultTextEncodingName("utf-8");
+        this.webView.getSettings().setDomStorageEnabled(true);
+        MainJavaScriptInterface jsMain = new MainJavaScriptInterface(this);
+        this.webView.addJavascriptInterface(jsMain, "JSInterface");
+        iniciarServico();
+        //Intent serviceIntent = new Intent(getApplicationContext(), StockOptionsService.class);
+        //startService(serviceIntent);
+        if (savedInstanceState == null) {
+            //this.webView.loadUrl("file:///android_asset/teste-js.html");
+            this.webView.loadUrl("file:///android_asset/principal.html");
+        }
 			
 	}
 
