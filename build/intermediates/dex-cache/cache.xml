@@ -33,7 +33,7 @@
         jar="D:\workspace\ws-sata-git\stockoptionsanalysis\app\libs\sata-mobile-core.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="65f92ed6e3ecad2934469cf5ad157679f27b5de4">
+        sha1="8fd66fa231ab67b158da3bfb92ffcf662b45a2a4">
         <dex dex="D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar" />
     </item>
     <item

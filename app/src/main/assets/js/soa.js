@@ -39,6 +39,13 @@ if(!soa) {
 		atualizarAlertas: function(alertas) {
 			if (IS_MOBILE_RUNNING)
 				window.JSInterface.atualizarAlertas(JSON.stringify(alertas));
+		},
+		
+		getVencimentoOpcoes: function() {
+			//if (IS_MOBILE_RUNNING)
+			//	return JSON.parse(window.JSInterface.getVencimentoOpcoes());
+			//else	
+				return JSON.parse("{\"A\":\"18/01/2016\",\"B\":\"15/02/2016\",\"C\":\"21/03/2016\",\"D\":\"18/04/2016\",\"E\":\"16/05/2016\",\"F\":\"20/06/2016\",\"G\":\"18/07/2016\",\"H\":\"15/08/2016\",\"I\":\"19/09/2016\",\"J\":\"17/10/2016\",\"K\":\"21/11/2016\",\"L\":\"19/12/2016\",\"M\":\"18/01/2016\",\"N\":\"15/02/2016\",\"O\":\"21/03/2016\",\"P\":\"18/04/2016\",\"Q\":\"16/05/2016\",\"R\":\"20/06/2016\",\"S\":\"18/07/2016\",\"T\":\"15/08/2016\",\"U\":\"19/09/2016\",\"V\":\"17/10/2016\",\"W\":\"21/11/2016\",\"X\":\"19/12/2016\"}");
 		}
 		
     }

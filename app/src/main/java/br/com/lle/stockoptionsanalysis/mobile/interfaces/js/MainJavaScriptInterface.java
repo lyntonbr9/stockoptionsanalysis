@@ -127,4 +127,11 @@ public class MainJavaScriptInterface {
         sa.stockAlert();
     }
 
+    @JavascriptInterface
+    public String getVencimentoOpcoes() {
+        IBuscaCotacaoOpcao bco = new BVMFBuscaCotacaoOpcao();
+        //return gson.toJson(bco.getVencimentosOpcoes());
+        return "";
+    }
+
 }

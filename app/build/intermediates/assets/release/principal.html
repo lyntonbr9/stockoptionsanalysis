@@ -27,7 +27,7 @@
 			var WINDOW_LOCATION = window.location.href;
 			var COTACOES_OPCOES;
 			var SOA_ALERTS;
-			var TAXA_JUROS = 13.25;
+			var TAXA_JUROS = 14.25;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
@@ -42,7 +42,12 @@
 				$("#txjuros").val(TAXA_JUROS);
 				// esconde a div de opcoes
 				$("#divOpcoes").hide();
-				$("#btnOpcoes").hide();
+				$(".btnOpcoes").hide();
+				//$(".btnAdicionarOpcao").hide();
+				//var VENCIMENTO_OPCOES = soa.getVencimentoOpcoes();
+			
+				alert(JSON.stringify(VENCIMENTO_OPCOES));
+				console.log(JSON.stringify(VENCIMENTO_OPCOES));
 				// renderiza a tabela de alertas
 				renderizarTabelaAlertas();
 			});
@@ -72,7 +77,8 @@
 			function getCotacao() {
 				document.getElementById('lblCotacaoAtivo').innerHTML = "";
 				$("#divOpcoes").hide();
-                $("#btnOpcoes").hide();
+                $(".btnOpcoes").hide();
+				//$(".btnAdicionarOpcao").hide();
 				openLoading();
 				setTimeout(function() {
 					var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
@@ -96,8 +102,11 @@
 					    //    || codigoAtivo == 'BBDC4' || codigoAtivo == 'BVMF3'
 					    //    || codigoAtivo == 'ITUB4' || codigoAtivo == 'CYRE3'
 					    //    || codigoAtivo == 'USIM5' || codigoAtivo == 'ESTC3') {
-							$("#btnOpcoes").show();
+							$(".btnOpcoes").show();
 					    }
+						//if (codigoAtivo.length > 5) {
+							//$(".btnAdicionarOpcao").show();
+						//}
 					}
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
@@ -148,7 +157,7 @@
                     // eh a busca de uma acao
                     if (codigoAtivo.length <= 5) {
                         if(!localStorage[nomeAtrLS] || !verificarCache) {
-                            alert('Vai atualizar a lista de opções');
+                            alert('Vai atualizar a lista de opções (tempo médio de 2 min 40 seg)');
                             // recupera as cotacoes das opcoes da acao
                             COTACOES_OPCOES = soa.getCotacoesOpcoes(codigoAtivo, ehCall);
                             //alert('Terminou de atualizar a lista de opções');
@@ -234,11 +243,45 @@
 				atualizarAlertas();
 				renderizarTabelaAlertas();
 			}
+			
+			// DEPRECATED
+			function adicionarCotacaoOpcao() {
+			
+				var codigoOpcao = document.getElementById('codigoAtivo').value.toUpperCase();
+				var codigoAtivo = codigoOpcao.substring(0,4);
+				codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : 'VALE5';
+				var cotacaoOpcao = {codigo: 'PETRL22', precoExercicio: '10,56', dataVencimento: '22/07/2016', ehCall: 'true'};
+				var tipoOpcao = (cotacaoOpcao.ehCall == 'true') ? '_CALL' : '_PUT';
+				var nomeAtrLS = 'soa_' + codigoAtivo + tipoOpcao;
+				// limpa a tabela
+				soaTB.clearTable("tbOpcoes");
+				COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
+				if (!existeCotacaoOpcao(COTACOES_OPCOES, cotacaoOpcao, 'codigo')) {
+					COTACOES_OPCOES.splice(0,0, cotacaoOpcao);
+					localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
+				}       
+				if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+					// cria a tabela
+					soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
+					// mostra a div de opcoes
+					$("#divOpcoes").show();
+				}
+				
+				atualizarCotacoesOpcoes();
+			}
+			
+			function existeCotacaoOpcao(array, objeto, atributo) {
+				for (var i = 0; i < array.length; i++) {
+					if (array[i][atributo] == objeto[atributo])
+						return true;
+				}
+				return false;
+			}
 
 			function atualizarCotacoesOpcoes() {
 			    var precoAcao = document.getElementById('lblCotacaoAtivo').innerHTML;
 			    //alert(precoAcao);
-                for (i = 0; i < COTACOES_OPCOES.length; i++) {
+                for (var i = 0; i < COTACOES_OPCOES.length; i++) {
                     //for (i = 0; i < 4; i++) {
                     //var i = 0;
                     setTimeout(function(x,y) {
@@ -549,7 +592,12 @@
 						<label id="lblCotacaoAtivo"></label>
 					</td>
 					<td colspan="2">
-						<div id="btnOpcoes">
+						<!--
+						<div class="btnAdicionarOpcao">
+							<input  data-icon="plus" data-inline="true" class="show-page-loading-msg" value="Adicionar" type="button" onclick="adicionarCotacaoOpcao();" />
+						</div>
+						-->
+						<div class="btnOpcoes">
 							<fieldset data-role="controlgroup" data-type="horizontal">
 								<input type="radio" name="tipoOpc" value="1" id="tipoOperCompra2" onclick="carregarCotacoesOpcoes(true, true);" />
 								<label for="tipoOperCompra2">Call</label>
