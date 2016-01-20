@@ -5,7 +5,7 @@ if(!soa) {
 			if (IS_MOBILE_RUNNING)
 				return window.JSInterface.getCotacao(codigoAtivo);
 			else
-				return '11,66';
+				return '88,88';
         },
 
         getCotacoesOpcoes: function(codigoAtivo, ehCall) {
@@ -19,14 +19,14 @@ if(!soa) {
 			if (IS_MOBILE_RUNNING)
 				return window.JSInterface.getVolatilidade(ehCall, pa, pe, precoOpcao, qtdDiasVenc, txjuros);
 			else
-				return '54.00';
+				return '88.88';
         },
 		
 		getPrecoOpcao: function(ehCall, pa, pe, qtdDiasVenc, volat, txjuros) {
 			if (IS_MOBILE_RUNNING)
 				return window.JSInterface.getPrecoOpcao(ehCall, pa, pe, qtdDiasVenc, volat, txjuros);
 			else
-				return '0.23';
+				return '8.88';
 		},
 		
 		getResultado: function(ehCall, pe, pia, pfa, interv, qtdDias, volat, txjuros) {

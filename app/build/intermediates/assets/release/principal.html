@@ -23,7 +23,6 @@
 			var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
 			console.log('navigator.userAgent: ' + navigator.userAgent);
 			console.log('IS_MOBILE_RUNNING: ' + IS_MOBILE_RUNNING);
-			//var WINDOW_LOCATION = "";
 			var WINDOW_LOCATION = window.location.href;
 			var COTACOES_OPCOES;
 			var SOA_ALERTS;
@@ -45,9 +44,8 @@
 				$(".btnOpcoes").hide();
 				//$(".btnAdicionarOpcao").hide();
 				//var VENCIMENTO_OPCOES = soa.getVencimentoOpcoes();
-			
-				alert(JSON.stringify(VENCIMENTO_OPCOES));
-				console.log(JSON.stringify(VENCIMENTO_OPCOES));
+				//alert(JSON.stringify(VENCIMENTO_OPCOES));
+				
 				// renderiza a tabela de alertas
 				renderizarTabelaAlertas();
 			});
@@ -246,7 +244,6 @@
 			
 			// DEPRECATED
 			function adicionarCotacaoOpcao() {
-			
 				var codigoOpcao = document.getElementById('codigoAtivo').value.toUpperCase();
 				var codigoAtivo = codigoOpcao.substring(0,4);
 				codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : 'VALE5';
