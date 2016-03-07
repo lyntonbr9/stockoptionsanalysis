@@ -33,15 +33,8 @@
         jar="D:\workspace\ws-sata-git\stockoptionsanalysis\app\libs\sata-mobile-core.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="96513308ce4515f42dd9e837b2bf38521eb07072">
-        <dex dex="D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar" />
-    </item>
-    <item
-        jar="D:\workspace\ws-sata-git\stockoptionsanalysis\app\libs\sata-util.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e3051ca315bc1e4e65bef381e0f667f129beedb8">
-        <dex dex="D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-util-ff175175ba0daf2b198745c2757d12032f29aaab.jar" />
+        sha1="eefe4d4fc508740f10def19d3fa68050d68d48d5">
+        <dex dex="D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar" />
     </item>
     <item
         jar="C:\Users\lynton\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3\5fc52c41ef0239d1093a1eb7c3697036183677ce\gson-2.3.jar"
@@ -49,6 +42,13 @@
         revision="21.1.2"
         sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
         <dex dex="C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar" />
+    </item>
+    <item
+        jar="D:\workspace\ws-sata-git\stockoptionsanalysis\app\libs\sata-util.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="eebc80946ef28a14e566718c7298357fc4552679">
+        <dex dex="D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-util-ff175175ba0daf2b198745c2757d12032f29aaab.jar" />
     </item>
     <item
         jar="C:\Users\lynton\AndroidstudioProjects\stockoptionsanalysis\app\libs\sata-mobile-core.jar"

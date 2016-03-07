@@ -11,7 +11,7 @@ if(!soaTB) {
                 co.volatilidadeImplicita = co.volatilidadeImplicita || "";
                 $("#"+idTable).append('<tr>' +
                     '<td onclick="simularOpcao(' + i +  ')" ><a href="#pgSimulacao">' + co.codigo + '</a></td>' +
-                    '<td>' + co.precoExercicio + '</td>' +
+                    '<td class="PE_' + linha + '">' + co.precoExercicio + '</td>' +
                     '<td class="PRAZO_' + linha + '"> d</td>' +
                     '<td class="PR_' + linha + '">' + co.fechamento + '</td>' +
                     '<td class="VE_' + linha + '">' + co.valorExtrinseco + '</td>' +

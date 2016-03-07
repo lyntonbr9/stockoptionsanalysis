@@ -12,7 +12,16 @@ if(!soa) {
 			if (IS_MOBILE_RUNNING)
 				return JSON.parse(window.JSInterface.getCotacoesOpcoes(codigoAtivo, ehCall));
 			else
-				return [{codigo: 'PETRG12', precoExercicio: '12,16', dataVencimento: '20/07/2015', ehCall: 'true'}];
+				return [{codigo: 'PETRP1', precoExercicio: '5,00', dataVencimento: '18/04/2016', ehCall: 'true'}];
+        },
+		
+		getCotacaoOpcao: function(codigoOpcao) {
+			if (IS_MOBILE_RUNNING) {
+				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
+				console.log(strCo);
+				return JSON.parse(strCo);
+			} else
+				return {codigo: 'PETRP2', precoExercicio: '6,00', dataVencimento: '18/04/2016', ehCall: 'true'};
         },
 
         getVolatilidade: function(ehCall, pa, pe, precoOpcao, qtdDiasVenc, txjuros) {

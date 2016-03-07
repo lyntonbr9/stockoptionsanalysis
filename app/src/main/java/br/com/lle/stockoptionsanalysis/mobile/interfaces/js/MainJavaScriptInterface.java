@@ -111,11 +111,18 @@ public class MainJavaScriptInterface {
 	}
 
     @JavascriptInterface
-    public String getCotacoesOpcoes(String codigoAtivo, boolean ehCall) {
-        List<CotacaoOpcaoTO> cotacoesOpcoes = new ArrayList<CotacaoOpcaoTO>();
+     public String getCotacoesOpcoes(String codigoAtivo, boolean ehCall) {
+            List<CotacaoOpcaoTO> cotacoesOpcoes = new ArrayList<CotacaoOpcaoTO>();
         IBuscaCotacaoOpcao bco = new BVMFBuscaCotacaoOpcao();
         cotacoesOpcoes = bco.getCotacoesOpcoes(codigoAtivo, ehCall);
         return gson.toJson(cotacoesOpcoes);
+    }
+
+    @JavascriptInterface
+    public String getCotacaoOpcao(String codigoOpcao) {
+        IBuscaCotacaoOpcao bco = new BVMFBuscaCotacaoOpcao();
+        CotacaoOpcaoTO co = bco.getCotacaoOpcao(codigoOpcao);
+        return gson.toJson(co);
     }
 
     @JavascriptInterface
