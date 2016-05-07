@@ -9,10 +9,10 @@ if(!soa) {
         },
 
         getCotacoesOpcoes: function(codigoAtivo, ehCall) {
-			if (IS_MOBILE_RUNNING)
-				return JSON.parse(window.JSInterface.getCotacoesOpcoes(codigoAtivo, ehCall));
-			else
-				return [{codigo: 'PETRP1', precoExercicio: '5,00', dataVencimento: '18/04/2016', ehCall: 'true'}];
+			//if (IS_MOBILE_RUNNING)
+			//	return JSON.parse(window.JSInterface.getCotacoesOpcoes(codigoAtivo, ehCall));
+			//else
+			//	return [{codigo: 'PETRP1', precoExercicio: '5,00', dataVencimento: '18/04/2016', ehCall: 'true'}];
         },
 		
 		getCotacaoOpcao: function(codigoOpcao) {

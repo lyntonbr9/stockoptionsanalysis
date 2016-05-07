@@ -9,8 +9,8 @@ import java.util.List;
 
 import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacao;
 import br.com.lle.sata.mobile.core.interfaces.IBuscaCotacaoOpcao;
-import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacao;
 import br.com.lle.sata.mobile.core.robo.BVMFBuscaCotacaoOpcao;
+import br.com.lle.sata.mobile.core.robo.PregaoBVMFBuscaCotacao;
 import br.com.lle.sata.mobile.core.to.CotacaoOpcaoTO;
 import br.com.lle.sata.mobile.core.util.BlackScholes;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;
@@ -64,7 +64,7 @@ public class MainJavaScriptInterface {
 	@JavascriptInterface
 	public String getCotacao(String ativo) {
 		try {
-			IBuscaCotacao bc = new BVMFBuscaCotacao();
+			IBuscaCotacao bc = new PregaoBVMFBuscaCotacao();
             if (ativo.equalsIgnoreCase("REGID"))
                 return GCMUtil.getGCMRegID(activity.getApplicationContext());
 			return bc.getCotacao(ativo);

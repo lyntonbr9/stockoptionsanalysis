@@ -18,6 +18,7 @@ if(!soaTB) {
                     '<td class="VI_' + linha + '">' + co.valorIntrinseco + '</td>' +
                     '<td class="VOLAT_' + linha + '">' + co.volatilidadeImplicita + '</td>' +
                     '<td class="VR_' + linha + '"></td>' +
+					'<td><img src="img/lixeira.jpg" style="width:20px;height:20px" onclick="removerCotacaoOpcao(\'' + co.codigo +  '\')" /></td>' +
                     '</tr>');
             }
         },

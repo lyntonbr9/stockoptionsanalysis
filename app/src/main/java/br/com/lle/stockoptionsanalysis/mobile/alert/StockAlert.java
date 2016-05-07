@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.List;
 
-import br.com.lle.sata.mobile.alert.AlertaStop;
+import br.com.lle.sata.alert.domain.AlertaStop;
 import br.com.lle.sata.mobile.alert.Notificacao;
 import br.com.lle.stockoptionsanalysis.R;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;

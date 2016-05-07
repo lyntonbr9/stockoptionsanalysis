@@ -47,10 +47,6 @@
 				// esconde a div de opcoes
 				$("#divOpcoes").hide();
 				$(".btnOpcoes").hide();
-				//$(".btnAdicionarOpcao").hide();
-				//var VENCIMENTO_OPCOES = soa.getVencimentoOpcoes();
-				//alert(JSON.stringify(VENCIMENTO_OPCOES));
-				
 				// renderiza a tabela de alertas
 				renderizarTabelaAlertas();
 			});
@@ -81,7 +77,6 @@
 				document.getElementById('lblCotacaoAtivo').innerHTML = "";
 				$("#divOpcoes").hide();
                 $(".btnOpcoes").hide();
-				//$(".btnAdicionarOpcao").hide();
 				openLoading();
 				setTimeout(function() {
 					var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
@@ -99,7 +94,7 @@
 					} else {
 					    document.getElementById('lblCotacaoAtivo').innerHTML = cotacao;
 					    document.getElementById('regID').style.display = "none";
-					    if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5') {
+					    if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5' || codigoAtivo == 'BBAS3') {
 					    //if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5'
 					    //    || codigoAtivo == 'ABEV3' || codigoAtivo == 'BBAS3'
 					    //    || codigoAtivo == 'BBDC4' || codigoAtivo == 'BVMF3'
@@ -107,12 +102,16 @@
 					    //    || codigoAtivo == 'USIM5' || codigoAtivo == 'ESTC3') {
 							$(".btnOpcoes").show();
 					    }
-						//if (codigoAtivo.length > 5) {
-							//$(".btnAdicionarOpcao").show();
-						//}
 					}
+					//$(".rdTipoOpcao input[type='radio'][checked]").removeAttr("checked");
+					//$(".rdTipoOpcao input[type='radio']").checkboxradio("refresh");
+					$("#tipoOperCompra2").removeAttr("checked");
+					$("#tipoOperVenda2").removeAttr("checked");
+					
+					$(".rdTipoOpcao input[type='radio']").checkboxradio("refresh");
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+					
 				}, TIME_LOADING_OPEN);
 			}
 
@@ -123,8 +122,8 @@
 			
 			function carregarCotacoesOpcoes(ehCall, verificarCache) {
 				var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
-				if (codigoAtivo != 'PETR4' && codigoAtivo != 'VALE5') {
-					alert('Só é possível recuperar as opções da ação PETR4 ou VALE5');
+				if (codigoAtivo != 'PETR4' && codigoAtivo != 'VALE5' && codigoAtivo != 'BBAS3') {
+					alert('Só é possível recuperar as opções da ação PETR4 ou VALE5 ou BBAS3');
 					return;
 				}
 			    openLoading();
@@ -137,7 +136,7 @@
                     // eh a busca de uma acao
                     if (codigoAtivo.length <= 5) {
                         if(!localStorage[nomeAtrLS] || !verificarCache) {
-                            alert('Vai atualizar a lista de opções (tempo médio de 2 min 40 seg)');
+                            //alert('Vai atualizar a lista de opções (tempo médio de 2 min 40 seg)');
                             // recupera as cotacoes das opcoes da acao
                             COTACOES_OPCOES = soa.getCotacoesOpcoes(codigoAtivo, ehCall);
                             //alert('Terminou de atualizar a lista de opções');
@@ -152,13 +151,16 @@
                             // cria a tabela
                             soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
                             // mostra a div de opcoes
-                            $("#divOpcoes").show();
+                            //$("#divOpcoes").show();
                         }
-                    } else {
-                        COTACOES_OPCOES = {};
+                    } 
+					//else {
+                    //    COTACOES_OPCOES = [];
                         // esconde a div de opcoes
-                        $("#divOpcoes").hide();
-                    }
+                        //$("#divOpcoes").hide();
+                    //}
+					COTACOES_OPCOES = COTACOES_OPCOES || [];
+					$("#divOpcoes").show();
 
                     // fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
@@ -225,45 +227,99 @@
 			}
 			
 			function adicionarCotacaoOpcao() {
-				var codigoOpcao = document.getElementById('codigoAtivo').value.toUpperCase();
-				var codigoAtivo = codigoOpcao.substring(0,4);
-				codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : 'VALE5';
-				var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao);
-				//console.log('exec 1');
-				var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
-				//console.log('exec 2');
-				var nomeAtrLS = 'soa_' + codigoAtivo + tipoOpcao;
-				//console.log('exec 3');
-				// limpa a tabela
-				soaTB.clearTable("tbOpcoes");
-				//console.log('exec 4');
-				if (localStorage[nomeAtrLS]) {
-					COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
-					if (!existeCotacaoOpcao(COTACOES_OPCOES, cotacaoOpcao, 'codigo')) {
+				openLoading();
+				setTimeout(function() {
+					var codigoOpcao = document.getElementById('acoCodigoOpcao').value.toUpperCase();
+					if (!codigoOpcao) {
+						alert('Você deve preencher o código da opção');
+					}
+					var codigoAtivo = codigoOpcao.substring(0,4);
+					codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : codigoAtivo;
+					codigoAtivo = (codigoAtivo == 'VALE') ? 'VALE5' : codigoAtivo;
+					codigoAtivo = (codigoAtivo == 'BBAS') ? 'BBAS3' : codigoAtivo;
+					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao);
+					//console.log('exec 1');
+					var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
+					//console.log('exec 2');
+					var nomeAtrLS = 'soa_' + codigoAtivo + tipoOpcao;
+					//console.log('exec 3');
+					// limpa a tabela
+					soaTB.clearTable("tbOpcoes");
+					//console.log('exec 4');
+					if (localStorage[nomeAtrLS]) {
+						COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
+						if (indexOfCotacaoOpcao(COTACOES_OPCOES, cotacaoOpcao, 'codigo') == -1) {
+							COTACOES_OPCOES.splice(0,0, cotacaoOpcao);
+							localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
+						}
+					} else {
+						COTACOES_OPCOES = [];
 						COTACOES_OPCOES.splice(0,0, cotacaoOpcao);
 						localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
 					}
-				} else {
-					COTACOES_OPCOES.splice(0,0, cotacaoOpcao);
-					localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
-				}
-				//console.log('exec 5');
-				if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
-					// cria a tabela
-					soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
-					// mostra a div de opcoes
-					$("#divOpcoes").show();
-				}
+					//console.log('exec 5');
+					if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+						// cria a tabela
+						soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
+						// mostra a div de opcoes
+						$("#divOpcoes").show();
+					}
+					
+					window.location=WINDOW_LOCATION+'#pgCarteira';
+					
+					// fecha o loading
+					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+					atualizarCotacoesOpcoes();
 				
-				atualizarCotacoesOpcoes();
+				}, TIME_LOADING_OPEN);
 			}
 			
-			function existeCotacaoOpcao(array, objeto, atributo) {
+			function removerCotacaoOpcao(codigoOpcao) {
+				if (!confirm('Você confirma a remoção da opção ' + codigoOpcao + '?')) {
+					return;
+				}
+				openLoading();
+				setTimeout(function() {
+					var codigoAtivo = codigoOpcao.substring(0,4);
+					codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : codigoAtivo;
+					codigoAtivo = (codigoAtivo == 'VALE') ? 'VALE5' : codigoAtivo;
+					codigoAtivo = (codigoAtivo == 'BBAS') ? 'BBAS3' : codigoAtivo;
+					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao);
+					//console.log('exec 1');
+					var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
+					//console.log('exec 2');
+					var nomeAtrLS = 'soa_' + codigoAtivo + tipoOpcao;
+					// limpa a tabela
+					soaTB.clearTable("tbOpcoes");
+					//console.log('exec 4');
+					if (localStorage[nomeAtrLS]) {
+						COTACOES_OPCOES = JSON.parse(localStorage[nomeAtrLS]);
+						var indiceCO = indexOfCotacaoOpcao(COTACOES_OPCOES, cotacaoOpcao, 'codigo');
+						if (indiceCO != -1) {
+							COTACOES_OPCOES.splice(indiceCO, 1);
+							localStorage[nomeAtrLS] = JSON.stringify(COTACOES_OPCOES);
+						}
+					}
+					if (COTACOES_OPCOES && COTACOES_OPCOES.length > 0) {
+						// cria a tabela
+						soaTB.addCotacoesOpcoes('tbOpcoes', COTACOES_OPCOES);
+						// mostra a div de opcoes
+						$("#divOpcoes").show();
+					}
+					
+					atualizarCotacoesOpcoes();
+					// fecha o loading
+					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+					
+				}, TIME_LOADING_OPEN);
+			}
+			
+			function  indexOfCotacaoOpcao(array, objeto, atributo) {
 				for (var i = 0; i < array.length; i++) {
 					if (array[i][atributo] == objeto[atributo])
-						return true;
+						return i;
 				}
-				return false;
+				return -1;
 			}
 			
 			function simularOpcao(indice) {
@@ -276,7 +332,6 @@
 			    $("#peBS").val(precoExerc);
 				$("#qtdDiasVencBS").val($(".PRAZO_" + linha).html().replace(" d", ""));
 				$("#poBS").val($(".PR_" + linha).html().replace(",","."));
-				
 				$("#pe").val(precoExerc);
 			    var variacao = round(precoExerc*0.3);
 			    $("#pia").val(round(precoExerc - variacao));
@@ -308,13 +363,11 @@
 			    var precoAcao = document.getElementById('lblCotacaoAtivo').innerHTML;
 			    //alert(precoAcao);
                 for (var i = 0; i < COTACOES_OPCOES.length; i++) {
-                    //for (i = 0; i < 4; i++) {
-                    //var i = 0;
                     setTimeout(function(x,y) {
                         return function() {
                             atualizarCotacaoOpcao(x,y);
                         }
-                    }(i, precoAcao), 200);
+                    }(i, precoAcao), 400);
                 }
             }
 
@@ -478,6 +531,7 @@
 					}
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+					
 				}, TIME_LOADING_OPEN);
 			}
 
@@ -566,33 +620,6 @@
 				
 				mostrarContainer();
 			}
-
-			/*
-			function montarOperacoesAtivoTable(operacoes) {
-				for (var i = 0; i < operacoes.length; i++) {
-					var operacao = operacoes[i];
-					addOperacoesAtivoTableRow('tbAtivo', operacao.tipo.descricao, operacao.codigoAtivo, operacao.dataVencimento, 
-							operacao.quantidade, operacao.precoOperacao, operacao.precoAtual);
-				}
-			}
-
-			function addOperacoesAtivoTableRow(tableId, operacao, ativo, dataVencimento, quantidade, precoOperacao, precoAtual) {
-				var saldoAtual = precoAtual - precoOperacao;
-				saldoAtual = saldoAtual.toFixed(2);
-				var classOperName = (saldoAtual > 0) ? 'OperacaoPositiva' : 'OperacaoNegativa';
-				$("#" + tableId).append('<tr>' +
-					'<td>' + operacao + '</td>' + 
-					'<td>' + ativo + '</td>' + 
-					'<td>' + dataVencimento + '</td>' + 
-					'<td>' + quantidade + '</td>' +
-					'<td>' + precoOperacao + '</td>' + 
-					'<td>' + precoAtual + '</td>' +
-					'<td class=' + classOperName + '>' + saldoAtual + '</td>' +
-					'<td><img src="img/lixeira.jpg" style="width:20px;height:20px" class="rmRowAtivo" /></td>' +
-					'</tr>');
-				//$("#"+ tableId).table("refresh");
-			}
-			*/
 		</script>
 	</head>
 	<body>
@@ -607,7 +634,7 @@
 				</ul>
 			</div>
 		</div>
-
+		
 		<div data-role="content">
 			<table>
 				<tbody>
@@ -628,7 +655,7 @@
 					</td>
 					<td colspan="2">
 						<div class="btnOpcoes">
-							<fieldset data-role="controlgroup" data-type="horizontal">
+							<fieldset data-role="controlgroup" data-type="horizontal" class="rdTipoOpcao">
 								<input type="radio" name="tipoOpc" value="1" id="tipoOperCompra2" onclick="carregarCotacoesOpcoes(true, true);" />
 								<label for="tipoOperCompra2">Call</label>
 								<input type="radio" name="tipoOpc" value="0" id="tipoOperVenda2" onclick="carregarCotacoesOpcoes(false, true);"/>
@@ -641,10 +668,13 @@
 			</table>
 		
             <textarea id="regID" rows="10" cols="30" style="display:none" ></textarea>
-
+			
             <div id="divOpcoes">
+				<!--
 				<input data-mini="true" data-icon="refresh" data-inline="true" type="button" value="Atualizar Opções" onclick="recarregarCotacoesOpcoes();" />
-				<input data-mini="true" data-icon="plus" data-inline="true" type="button" value="Adicionar Opção" onclick="adicionarCotacaoOpcao();" />
+				-->
+				<input data-mini="true" data-icon="plus" data-inline="true" type="button" value="Adicionar Opção" onclick="window.location=WINDOW_LOCATION+'#pgAdicionarCotacaoOpcao';" />
+				
                 <table data-role="table" id="tbOpcoes" data-mode="columntoggle" class="ui-responsive table-stroke">
                     <thead>
 						<tr>
@@ -667,6 +697,36 @@
                 </table>
                 <br/>
             </div>
+		</div>
+	</div>
+	
+	<div data-role="page" id="pgAdicionarCotacaoOpcao">
+		<div data-role="content">
+			<table data-role="table" id="tbAdicionarCotacaoOpcao" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<thead>
+				</thead>
+				<tbody>
+					<tr>
+						<td colspan="4">
+							<font class="Titulo">Adicionar Opção</font>
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>Opção:</td>
+						<td><input id="acoCodigoOpcao" style="text-transform: uppercase" value="" type="text" size="10" /></td>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+			</table>
+			<table data-role="table" data-mode="columntoggle" class="ui-responsive table-stroke">
+				<tbody>
+					<tr>
+						<td><input type="button" data-icon="plus" value="Adicionar" onclick="adicionarCotacaoOpcao();" /></td>
+						<td><input type="button" data-icon="back" value="Cancelar" onclick="window.location=WINDOW_LOCATION+'#pgCarteira';" /></td>
+					<tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	
