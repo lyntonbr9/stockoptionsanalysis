@@ -33,8 +33,7 @@
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
-			var CALLS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'];
-			var PUTS = ['M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X'];
+			
 			var VERSAO_PRO = false;
 			
 			window.onload = function() {
@@ -93,7 +92,13 @@
 						return;
 					}
 					
-					var promessa = soa.getCotacao(codigoAtivo);
+					//var promessa = soa.getCotacao(codigoAtivo);
+					var promessa;
+					if (codigoAtivo.length < 6)
+						promessa = soa.getCotacaoAcao(codigoAtivo);
+					else {
+						alert('o código do ativo não é de uma ação');
+					} 
 					
 					promessa.then(function(data) {
 						
@@ -243,12 +248,12 @@
 					codigoAtivo = (codigoAtivo == 'VALE') ? 'VALE5' : codigoAtivo;
 					codigoAtivo = (codigoAtivo == 'BBAS') ? 'BBAS3' : codigoAtivo;
 					
-					var promessa = soa.getCotacaoOpcao(codigoOpcao);
+					//var promessa = soa.getCotacaoOpcao(codigoOpcao);
+					var promessa = soa.getCotacaoOpcao(codigoOpcao, codigoAtivo);
 					
 					promessa.then(function(data) {
 					
 						var cotacaoOpcao = data;
-						cotacaoOpcao.ehCall = getTipoOpcao(codigoOpcao);
 						
 						//console.log('exec 1');
 						var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
@@ -388,7 +393,8 @@
             function atualizarCotacaoOpcao(i, precoAcao) {
                 var linha = i + 1;
                 var co = COTACOES_OPCOES[i];
-				var promessa = soa.getCotacao(co.codigo);
+				//var promessa = soa.getCotacao(co.codigo);
+				var promessa = soa.getCotacaoOpcao(co.codigo, co.codigoAcao);
 					
 				promessa.then(function(data){
 					co.fechamento = data.fechamento;
@@ -597,15 +603,6 @@
 				chart.render();
 				
 				mostrarContainer();
-			}
-			
-			function getTipoOpcao(nome) {
-				var letraOpcao = nome.substr(4,1).toUpperCase();
-				for (var i = 0; i < CALLS.length; i++) {
-					if (letraOpcao === CALLS[i])
-						return true;
-				}
-				return false;
 			}
 		</script>
 	</head>

@@ -1,6 +1,16 @@
 if(!soa) {
+		
     var soa = {
-
+		CALLS: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L'],
+		getTipoOpcao: function(codigoOpcao) {
+			var letraOpcao = codigoOpcao.substr(4,1).toUpperCase();
+			for (var i = 0; i < this.CALLS.length; i++) {
+				if (letraOpcao === this.CALLS[i])
+					return true; // CALL
+			}
+			return false; // PUT
+		},
+		// deprecated
         getCotacao: function(codigoAtivo) {
 			if (IS_MOBILE_RUNNING)
 				return window.JSInterface.getCotacao(codigoAtivo);
@@ -11,7 +21,30 @@ if(!soa) {
 				//return '14.94';
 			}
         },
-
+		// deprecated
+		getCotacaoOpcao: function(codigoOpcao) {
+			if (IS_MOBILE_RUNNING) {
+				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
+				console.log(strCo);
+				return JSON.parse(strCo);
+			} else {
+				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
+				return promessa;
+				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
+			}
+        },
+		
+		getCotacaoAcao: function(codigoAcao) {
+			if (IS_MOBILE_RUNNING)
+				return window.JSInterface.getCotacao(codigoAcao);
+			else {
+				
+				var promessa = bc.getCotacaoAcao(codigoAcao);
+				return promessa;
+				//return '14.94';
+			}
+        },
+		
         getCotacoesOpcoes: function(codigoAtivo, ehCall) {
 			//if (IS_MOBILE_RUNNING)
 			//	return JSON.parse(window.JSInterface.getCotacoesOpcoes(codigoAtivo, ehCall));
@@ -19,14 +52,13 @@ if(!soa) {
 			//	return [{codigo: 'PETRP1', precoExercicio: '5,00', dataVencimento: '18/04/2016', ehCall: 'true'}];
         },
 		
-		getCotacaoOpcao: function(codigoOpcao) {
+		getCotacaoOpcao: function(codigoOpcao, codigoAcao) {
 			if (IS_MOBILE_RUNNING) {
 				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
 				console.log(strCo);
 				return JSON.parse(strCo);
 			} else {
-				
-				var promessa = bc.getCotacaoOpcao(codigoOpcao);
+				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
 				return promessa;
 				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
 			}
@@ -48,12 +80,6 @@ if(!soa) {
 		},
 		
 		getResultado: function(ehCall, pe, pia, pfa, interv, qtdDias, volat, txjuros) {
-			/*
-			if (IS_MOBILE_RUNNING)
-				return JSON.parse(window.JSInterface.resultado(ehCall, pe, pia, pfa, interv, qtdDias, volat, txjuros));
-			else {
-			} */
-			
 			var valoresBS = [];
 			var tipoOpcao = ehCall ? 'call' : 'put';
 			volat = (volat/100);
@@ -67,7 +93,6 @@ if(!soa) {
 				});
 			}
 			return valoresBS;
-			
 		},
 		
 		atualizarAlertas: function(alertas) {
