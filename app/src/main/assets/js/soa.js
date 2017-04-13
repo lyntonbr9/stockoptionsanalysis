@@ -21,25 +21,18 @@ if(!soa) {
 				//return '14.94';
 			}
         },
-		// deprecated
-		getCotacaoOpcao: function(codigoOpcao) {
-			if (IS_MOBILE_RUNNING) {
-				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
-				console.log(strCo);
-				return JSON.parse(strCo);
-			} else {
-				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
-				return promessa;
-				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
-			}
-        },
 		
 		getCotacaoAcao: function(codigoAcao) {
 			if (IS_MOBILE_RUNNING)
 				return window.JSInterface.getCotacao(codigoAcao);
 			else {
 				
-				var promessa = bc.getCotacaoAcao(codigoAcao);
+				if(VERSAO_PRO) {
+					var promessa = bcp.getCotacao(codigoAcao);
+				} else {
+					var promessa = bc.getCotacaoAcao(codigoAcao);
+				}
+				
 				return promessa;
 				//return '14.94';
 			}
@@ -58,10 +51,26 @@ if(!soa) {
 				console.log(strCo);
 				return JSON.parse(strCo);
 			} else {
-				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
+				
+				if(VERSAO_PRO) {
+					var promessa = bcp.getCotacaoOpcao(codigoOpcao);
+				} else {
+					var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
+				}
+				
 				return promessa;
 				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
 			}
+			/*
+			if (IS_MOBILE_RUNNING) {
+				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
+				console.log(strCo);
+				return JSON.parse(strCo);
+			} else {
+				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
+				return promessa;
+				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
+			}*/
         },
 
         getVolatilidade: function(ehCall, pa, pe, precoOpcao, qtdDiasVenc, txjuros) {

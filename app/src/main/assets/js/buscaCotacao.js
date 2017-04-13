@@ -1,6 +1,9 @@
 if (!bc) {
 	
-	var URL_PATTERN = 'http://www.infomoney.com.br/api/opcoes?hash=cfcd208495d565ef66e7dff9f98764da&ch=00829ae26f8332c7c84fce65c8293d06';
+	//var URL_PATTERN = 'http://www.infomoney.com.br/api/opcoes?hash=cfcd208495d565ef66e7dff9f98764da&ch=00829ae26f8332c7c84fce65c8293d06';
+	
+	
+	var URL_PATTERN = 'http://www.infomoney.com.br/api/opcoes?ch=302d9af8da629c0a64c348fbdbe44a62&hash=cfcd208495d565ef66e7dff9f98764da';
 	
 	//var regExpOpcoes = /<MaturityDate>([\s\S]*?)<\/Symbol>/g;
 	
@@ -20,9 +23,6 @@ if (!bc) {
 				if (codigoOpcao.toUpperCase() == response.Options[i].Symbol.toUpperCase()) {
 					return response.Options[i];
 				}
-			}
-			return {
-				Price: -99.99
 			}
 		},
 		_getAjaxPostConfig: function(codigoAcao, dataMesOpcao, ehCall) {
