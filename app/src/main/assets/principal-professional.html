@@ -5,7 +5,12 @@
 		<meta charset="UTF-8" /> 
 		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
         <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css" />
+		
         <script src="js/jquery.js"></script>
+		
+		<!--
+		<script src="js/jquery-1.12.4.js"></script>
+		-->
         <script>
 			// Corrige o load infinito do jquery-mobile no android 5
             $(document).bind('mobileinit',function(){
@@ -35,11 +40,15 @@
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
 			
-			var VERSAO_PRO = true;
+			var VERSAO_PRO = false;
 			
 			window.onload = function() {
 				// oculta o container
 				ocultarChartContainer();
+			}
+			
+			window.executarCotacao = function (dados) {
+				console.log(dados);
 			}
 			
 			$(document).ready(function(){
@@ -103,7 +112,7 @@
 					
 					//var promessa = soa.getCotacao(codigoAtivo);
 					var promessa;
-					if (codigoAtivo.length < 6) {
+					//if (codigoAtivo.length < 6) {
 						promessa = soa.getCotacaoAcao(codigoAtivo);
 						
 						promessa.then(function(data) {
@@ -121,10 +130,10 @@
 							$(".rdTipoOpcao input[type='radio']").checkboxradio("refresh");
 						
 						});
-					}
-					else {
-						alert('O código do ativo não é código de uma ação válida');
-					}
+					//}
+					//else {
+					//	alert('O código do ativo não é código de uma ação válida');
+					//}
 					
 					// fecha o loading
 					setTimeout(closeLoading, TIME_LOADING_CLOSE);
