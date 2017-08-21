@@ -10,17 +10,6 @@ if(!soa) {
 			}
 			return false; // PUT
 		},
-		// deprecated
-        getCotacao: function(codigoAtivo) {
-			if (IS_MOBILE_RUNNING)
-				return window.JSInterface.getCotacao(codigoAtivo);
-			else {
-				
-				var promessa = bc.getCotacao(codigoAtivo);
-				return promessa;
-				//return '14.94';
-			}
-        },
 		
 		getCotacaoAcao: function(codigoAcao) {
 			if (IS_MOBILE_RUNNING)
@@ -61,16 +50,7 @@ if(!soa) {
 				return promessa;
 				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
 			}
-			/*
-			if (IS_MOBILE_RUNNING) {
-				var strCo = window.JSInterface.getCotacaoOpcao(codigoOpcao);
-				console.log(strCo);
-				return JSON.parse(strCo);
-			} else {
-				var promessa = bc.getCotacaoOpcao(codigoOpcao, codigoAcao, this.getTipoOpcao(codigoOpcao));
-				return promessa;
-				//return {codigo: 'PETRD15', precoExercicio: '15.00', dataVencimento: '17/04/2017', ehCall: 'true'};
-			}*/
+			
         },
 
         getVolatilidade: function(ehCall, pa, pe, precoOpcao, qtdDiasVenc, txjuros) {

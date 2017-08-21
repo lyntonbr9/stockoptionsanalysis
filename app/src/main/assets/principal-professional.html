@@ -26,7 +26,9 @@
         <script src="js/soa-table.js"></script>
 		<script src="js/black-scholes.js"></script>
 		<script src="js/buscaCotacao.js"></script>
+		<!--
 		<script src="js/buscaCotacaoPro.js"></script>
+		-->
         <link rel="stylesheet" type="text/css" href="css/soa-estilo.css" />
 		<script>
 			var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
@@ -451,7 +453,7 @@
 				});
 				
 				/*
-                co.fechamento = soa.getCotacao(co.codigo);
+				co.fechamento = soa.getCotacao(co.codigo);
                 var prazoVenc = getPrazoVencimento(co.dataVencimento);
                 $("." + "PRAZO_" + linha).html(prazoVenc + " d");
                 $("." + "PR_" + linha).html(co.fechamento);
