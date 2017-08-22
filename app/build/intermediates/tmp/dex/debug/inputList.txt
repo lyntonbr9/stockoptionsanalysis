@@ -1,9 +1,6 @@
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\classes\debug
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.0-f90f321111100430706673cd21a6cfa57209ce6f.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-alert-262c7e588055798ccdbef0ced73c2df047356440.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-util-ff175175ba0daf2b198745c2757d12032f29aaab.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.0-02cfbfac6a735a7b3b3e41c813808b0189b47705.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-252cbd0e8605d7efe0a7666f5490c91a8471571f.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-255d433f74805131185599d7836b940b29ecfd2d.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\classes\debug
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-alert-6d7250207ec974a4c4440a20fa7c29406af80ad4.jar
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-util-475751d36aaa6e756e51b055571e5c956a12a597.jar
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.3-5762f78a44959a921efdf6f59e7a4ab354ba1cfa.jar
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-2205dc014a04cdd7fdcc3c6d3e2e8c6be689c2fc.jar
+C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-93b1e1e0295b73b8ba4b374ce87df53caf0f06f3.jar

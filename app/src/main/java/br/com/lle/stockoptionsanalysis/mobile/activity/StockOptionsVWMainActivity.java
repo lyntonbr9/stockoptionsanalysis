@@ -35,6 +35,8 @@ public class StockOptionsVWMainActivity extends Activity {
         this.webView.setWebChromeClient(new StockOptionsChromeClient(this));
         this.webView.getSettings().setJavaScriptEnabled(true);
         this.webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        this.webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        this.webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         this.webView.getSettings().setDefaultTextEncodingName("utf-8");
         this.webView.getSettings().setDomStorageEnabled(true);
         MainJavaScriptInterface jsMain = new MainJavaScriptInterface(this);
@@ -44,7 +46,8 @@ public class StockOptionsVWMainActivity extends Activity {
         //startService(serviceIntent);
         if (savedInstanceState == null) {
             //this.webView.loadUrl("file:///android_asset/teste-js.html");
-            this.webView.loadUrl("file:///android_asset/principal.html");
+            this.webView.loadUrl("file:///android_asset/principal-professional.html");
+            //this.webView.loadUrl("file:///android_asset/principal.html");
         }
 			
 	}

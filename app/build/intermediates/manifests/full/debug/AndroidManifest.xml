@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.lle.stockoptionsanalysis"
-    android:versionCode="17"
-    android:versionName="1.16" >
+    android:versionCode="18"
+    android:versionName="1.17" >
 
     <uses-sdk
-        android:minSdkVersion="9"
+        android:minSdkVersion="16"
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<!--     <uses-permission android:name="android.permission.GET_ACCOUNTS" /> -->
+
+    <!--
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission
-        android:name="br.com.lle.stockoptionsanalysis.mobile.gcm.permission.C2D_MESSAGE"
+    <permission android:name="br.com.lle.stockoptionsanalysis.mobile.gcm.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="br.com.lle.stockoptionsanalysis.mobile.gcm.permission.C2D_MESSAGE" />
-
+    -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -35,23 +37,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!--
         <receiver
             android:name="br.com.lle.stockoptionsanalysis.mobile.gcm.GcmBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-
                 <category android:name="br.com.lle.stockoptionsanalysis.mobile.gcm" />
             </intent-filter>
         </receiver>
-
         <service android:name="br.com.lle.stockoptionsanalysis.mobile.gcm.GcmMessageHandler" />
+
         <service android:name="br.com.lle.stockoptionsanalysis.mobile.service.StockOptionsService" />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
+        <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+        -->
     </application>
 
 </manifest>

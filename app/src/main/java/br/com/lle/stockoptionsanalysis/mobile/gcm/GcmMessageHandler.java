@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import br.com.lle.stockoptionsanalysis.R;
 
@@ -20,7 +20,9 @@ public class GcmMessageHandler extends IntentService {
     String mes;
     private Handler handler;
     public GcmMessageHandler() {
-        super("GcmMessageHandler");
+
+        //super("GcmMessageHandler");
+        super("");
     }
 
     @Override
@@ -30,6 +32,7 @@ public class GcmMessageHandler extends IntentService {
     }
     @Override
     protected void onHandleIntent(Intent intent) {
+        /*
         Bundle extras = intent.getExtras();
 
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
@@ -42,6 +45,7 @@ public class GcmMessageHandler extends IntentService {
         log("GCM: Received : (" + messageType + ")  " + extras.getString("title"));
 
         GcmBroadcastReceiver.completeWakefulIntent(intent);
+        */
 
     }
 

@@ -2,7 +2,7 @@ package br.com.lle.stockoptionsanalysis.mobile.util;
 
 import android.content.Context;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
+//import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
 
@@ -19,9 +19,10 @@ public final class GCMUtil {
     private GCMUtil() {}
 
     public static String getGCMRegID(Context context) {
-        GoogleCloudMessaging gcm = null;
+        //GoogleCloudMessaging gcm = null;
         String regID = "";
         String msg = "";
+        /*
         try {
             gcm = GoogleCloudMessaging.getInstance(context);
             regID = gcm.register(PROJECT_NUMBER);
@@ -30,7 +31,7 @@ public final class GCMUtil {
         } catch (IOException ex) {
             msg = "Error :" + ex.getMessage();
             logError("GCM: " + msg);
-        }
+        }*/
         return regID;
     }
 }

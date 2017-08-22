@@ -26,18 +26,18 @@
         <script src="js/soa-table.js"></script>
 		<script src="js/black-scholes.js"></script>
 		<script src="js/buscaCotacao.js"></script>
-		<!--
 		<script src="js/buscaCotacaoPro.js"></script>
-		-->
+		
         <link rel="stylesheet" type="text/css" href="css/soa-estilo.css" />
 		<script>
-			var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
+			//var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
+			var IS_MOBILE_RUNNING = false;
 			console.log('navigator.userAgent: ' + navigator.userAgent);
 			console.log('IS_MOBILE_RUNNING: ' + IS_MOBILE_RUNNING);
 			var WINDOW_LOCATION = window.location.href;
 			var COTACOES_OPCOES;
 			var SOA_ALERTS;
-			var TAXA_JUROS = 12.00;
+			var TAXA_JUROS = 9.25;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
@@ -504,22 +504,21 @@
 
             function getVR(precoAcao, volatImp, qtdDiasVenc, ehCall) {
                 precoAcao = parseFloat(precoAcao.replace(",","."));
-                //alert(precoAcao);
+
                 var porDia = Math.sqrt(365);
-                //alert(porDia);
+
                 var porDiasVenc = Math.sqrt(qtdDiasVenc);
-                //alert(porDiasVenc);
+
                 volatImp = volatImp/100;
-                //alert(volatImp);
+
                 var calculo = (volatImp/porDia)*porDiasVenc;
-                //alert(calculo);
-                if(ehCall)
-                    calculo = 1 - calculo;
-                else
-                    calculo = 1 + calculo;
-                //alert(calculo);
-                //alert(round(precoAcao*calculo));
-                return round(precoAcao*calculo);
+				//alert(calculo);
+				var calculoAbaixo = 1 - calculo;
+
+               	var calculoAcima = 1 + calculo;
+
+                var valorRisco = round(precoAcao*calculoAbaixo) + '</br>' + round(precoAcao*calculoAcima);
+                return valorRisco;
             }
 
 			function getBS(qtdDias) {
@@ -725,7 +724,9 @@
                     <tbody>
                     </tbody>
                 </table>
-                <br/>
+                <br/><br/>
+				<p><b>PR - </b> Preço atual da opção.<b>(NÃO é o preço em tempo real)</b></p>
+				<p><b>VR - </b> Valor de Risco considerando a volatilidade implícita e o prazo da opção.</p>
             </div>
 		</div>
 	</div>

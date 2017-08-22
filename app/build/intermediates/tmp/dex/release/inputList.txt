@@ -1,9 +1,0 @@
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\classes\release
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\support-annotations-21.0.0-f90f321111100430706673cd21a6cfa57209ce6f.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-alert-262c7e588055798ccdbef0ced73c2df047356440.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-util-ff175175ba0daf2b198745c2757d12032f29aaab.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\internal_impl-21.0.0-02cfbfac6a735a7b3b3e41c813808b0189b47705.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\gson-2.3-def83dab65d397f583e376beaba995a33d557cfe.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-252cbd0e8605d7efe0a7666f5490c91a8471571f.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-255d433f74805131185599d7836b940b29ecfd2d.jar
-D:\workspace\ws-sata-git\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-mobile-core-be876304fae08a24703b8a27cf5b73b902924c34.jar

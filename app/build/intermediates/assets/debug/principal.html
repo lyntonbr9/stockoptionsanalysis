@@ -16,8 +16,11 @@
 		<script src="js/json2.js"></script>
 		<script src="js/canvasjs.js"></script>
         <script src="js/moment.js"></script>
+		
+		<script src="js/buscaCotacao.js"></script>
         <script src="js/soa.js"></script>
         <script src="js/soa-table.js"></script>
+		
         <link rel="stylesheet" type="text/css" href="css/soa-estilo.css" />
 		<script>
 			var IS_MOBILE_RUNNING = /Android|Mobile/i.test(navigator.userAgent);
@@ -30,6 +33,8 @@
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
+			
+			var VERSAO_PRO = false;
 			
 			window.onload = function() {
 				// oculta o container
@@ -86,7 +91,7 @@
 						setTimeout(closeLoading, TIME_LOADING_CLOSE);
 						return;
 					}
-					var cotacao = soa.getCotacao(codigoAtivo);
+					var cotacao = soa.getCotacaoAcao(codigoAtivo);
 
 					if (codigoAtivo.toUpperCase() == 'REGID') {
 					    document.getElementById('regID').innerHTML = cotacao;
@@ -237,7 +242,7 @@
 					codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : codigoAtivo;
 					codigoAtivo = (codigoAtivo == 'VALE') ? 'VALE5' : codigoAtivo;
 					codigoAtivo = (codigoAtivo == 'BBAS') ? 'BBAS3' : codigoAtivo;
-					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao);
+					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao, codigoAtivo);
 					//console.log('exec 1');
 					var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
 					//console.log('exec 2');
@@ -284,7 +289,7 @@
 					codigoAtivo = (codigoAtivo == 'PETR') ? 'PETR4' : codigoAtivo;
 					codigoAtivo = (codigoAtivo == 'VALE') ? 'VALE5' : codigoAtivo;
 					codigoAtivo = (codigoAtivo == 'BBAS') ? 'BBAS3' : codigoAtivo;
-					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao);
+					var cotacaoOpcao = soa.getCotacaoOpcao(codigoOpcao, codigoAtivo);
 					//console.log('exec 1');
 					var tipoOpcao = (cotacaoOpcao.ehCall == 'true' || cotacaoOpcao.ehCall) ? '_CALL' : '_PUT';
 					//console.log('exec 2');
@@ -374,7 +379,7 @@
             function atualizarCotacaoOpcao(i, precoAcao) {
                 var linha = i + 1;
                 var co = COTACOES_OPCOES[i];
-                co.fechamento = soa.getCotacao(co.codigo);
+                co.fechamento = soa.getCotacaoOpcao(co.codigo, codigoAtivo);
                 var prazoVenc = getPrazoVencimento(co.dataVencimento);
                 $("." + "PRAZO_" + linha).html(prazoVenc + " d");
                 $("." + "PR_" + linha).html(co.fechamento);
