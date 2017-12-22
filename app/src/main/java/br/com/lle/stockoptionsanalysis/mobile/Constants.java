@@ -20,6 +20,9 @@ public class Constants {
     // TODO: Lembrar de verificar o tempo quando for para producao
     public static int QUINZE_MIN_MILIS = 15*60*1000;
 
+    // TODO: Lembrar de verificar o tempo quando for para producao
+    public static int CINCO_MIN_MILIS = 5*60*1000;
+
     //public static int QUINZE_MIN_MILIS = 60*1000;
 
 }

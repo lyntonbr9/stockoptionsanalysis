@@ -4,13 +4,18 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import br.com.lle.sata.alert.domain.AlertaStop;
 import br.com.lle.sata.mobile.alert.Notificacao;
+import br.com.lle.sata.util.http.HTTPSata;
 import br.com.lle.stockoptionsanalysis.R;
 import br.com.lle.stockoptionsanalysis.mobile.Constants;
 import br.com.lle.stockoptionsanalysis.mobile.util.RedeUtil;
@@ -25,6 +30,8 @@ public class StockAlert {
 
     Context context;
 
+    public static String TAG = StockAlert.class.getSimpleName();
+
     public StockAlert (Context context) {
         this.context = context;
     }
@@ -35,6 +42,23 @@ public class StockAlert {
             //emitAlert("Alerta: ", "NO INTERNET CONNECTION");
             return;
         }
+
+        //PETR4 - https://cotacoes.economia.uol.com.br/ws/asset/484/intraday
+        //VALE5 - https://cotacoes.economia.uol.com.br/ws/asset/687/intraday
+        String conteudo = HTTPSata.GET("https://cotacoes.economia.uol.com.br/ws/asset/484/intraday", null);
+        Long tempoEmMillis = Long.parseLong(conteudo.substring(17, 30));
+        BigDecimal preco = new BigDecimal(conteudo.substring(39, 44).replaceAll(",", ""));
+        Date timestamp = new Date(tempoEmMillis);
+        Log.d(TAG, tempoEmMillis.toString());
+        Log.d(TAG, timestamp.toString());
+        Log.d(TAG, preco.toString());
+        String msg = "";
+        if (preco.compareTo(new BigDecimal("14")) > 0) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            msg = "PETR4 - " + dateFormat.format(timestamp) + " - " + preco.toString();
+            emitAlert("Alerta: ", msg);
+        }
+        /*
         List<AlertaStop> ass = Constants.gson.fromJson(JSON_ALERTAS_STOP, new TypeToken<List<AlertaStop>>(){}.getType());
         if (ass != null) {
             List<String> msgs = Notificacao.getAlertMessages(ass);
@@ -42,7 +66,7 @@ public class StockAlert {
                 if (msg != null && !msg.equals(""))
                     emitAlert("Alerta: ", msg);
             }
-        }
+        }*/
     }
 
     private void emitAlert(String tagMsg, String msg) {

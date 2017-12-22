@@ -29,7 +29,8 @@ public class StockOptionsService extends IntentService {
         try {
             int horaAtual = dataAtual.get(Calendar.HOUR_OF_DAY);
             // TODO: Lembrar de descomentar a hora para ir em producao
-            if (horaAtual >= Constants.HORA_COMECO && horaAtual <= Constants.HORA_FIM && !Constants.JSON_ALERTAS_STOP.equalsIgnoreCase("")) {
+            //if (horaAtual >= Constants.HORA_COMECO && horaAtual <= Constants.HORA_FIM && !Constants.JSON_ALERTAS_STOP.equalsIgnoreCase("")) {
+            if (horaAtual >= Constants.HORA_COMECO && horaAtual <= Constants.HORA_FIM) {
                 sa.stockAlert();
             }
         } catch (Exception e) {

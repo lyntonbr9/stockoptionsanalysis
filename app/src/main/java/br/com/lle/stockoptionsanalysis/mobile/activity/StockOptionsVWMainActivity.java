@@ -13,6 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import br.com.lle.stockoptionsanalysis.R;
 import br.com.lle.stockoptionsanalysis.mobile.interfaces.js.MainJavaScriptInterface;
 import br.com.lle.stockoptionsanalysis.mobile.service.StockOptionsService;
@@ -20,6 +23,7 @@ import br.com.lle.stockoptionsanalysis.mobile.util.GCMUtil;
 import br.com.lle.stockoptionsanalysis.mobile.webkit.StockOptionsChromeClient;
 
 import static br.com.lle.stockoptionsanalysis.mobile.Constants.QUINZE_MIN_MILIS;
+import static br.com.lle.stockoptionsanalysis.mobile.Constants.CINCO_MIN_MILIS;
 
 public class StockOptionsVWMainActivity extends Activity {
 
@@ -30,6 +34,8 @@ public class StockOptionsVWMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        //FirebaseApp.initializeApp(this);
+        //Log.d(StockOptionsVWMainActivity.class.getName(), "token id: " + FirebaseInstanceId.getInstance().getToken());
         setContentView(R.layout.activity_stock_options_main);
         this.webView = (WebView) findViewById(R.id.wvMain);
         this.webView.setWebChromeClient(new StockOptionsChromeClient(this));
@@ -58,7 +64,7 @@ public class StockOptionsVWMainActivity extends Activity {
                 0, new Intent(getApplicationContext(), StockOptionsService.class), 0);
         long firstTime = SystemClock.elapsedRealtime();
         AlarmManager am = (AlarmManager)getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME, firstTime, QUINZE_MIN_MILIS, serviceIntent);
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME, firstTime, CINCO_MIN_MILIS, serviceIntent);
     }
 
     @Deprecated
