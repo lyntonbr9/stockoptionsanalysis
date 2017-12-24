@@ -37,7 +37,7 @@
 			var WINDOW_LOCATION = window.location.href;
 			var COTACOES_OPCOES;
 			var SOA_ALERTS;
-			var TAXA_JUROS = 9.25;
+			var TAXA_JUROS = 7;
 			var TIME_LOADING_OPEN = 1000;
 			var TIME_LOADING_CLOSE = 100;
 			var ATR_SOA_ALERT_LS = "soa_alerts";
@@ -108,8 +108,8 @@
 					
 					// processa para ver qual eh o registro do dispositivo
 					if (codigoAtivo.toUpperCase() == 'REGID') {
-						//$('#regID').html(registroDispositivo);
-						//$('#regID').show();
+						$('#regID').html(registroDispositivo);
+						$('#regID').show();
 					}
 					
 					//var promessa = soa.getCotacao(codigoAtivo);
@@ -122,15 +122,21 @@
 							var cotacao = data.fechamento;						
 							$('#lblCotacaoAtivo').html(cotacao);
 							//$('#regID').hide();
-							if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5' || codigoAtivo == 'BBAS3') {
+							//if(codigoAtivo == 'PETR4' || codigoAtivo == 'VALE5' || codigoAtivo == 'BBAS3') {
 								$(".btnOpcoes").show();
-							}
+							//}
 						
 							$("#tipoOperCompra2").removeAttr("checked");
 							$("#tipoOperVenda2").removeAttr("checked");
 							
 							$(".rdTipoOpcao input[type='radio']").checkboxradio("refresh");
-						
+
+							setTimeout(closeLoading, TIME_LOADING_CLOSE);
+
+						}, function(err) {
+							console.log('Erro em getCotacao:');
+							console.log(err);
+							setTimeout(closeLoading, TIME_LOADING_CLOSE);
 						});
 					//}
 					//else {
@@ -138,7 +144,7 @@
 					//}
 					
 					// fecha o loading
-					setTimeout(closeLoading, TIME_LOADING_CLOSE);
+					//setTimeout(closeLoading, TIME_LOADING_CLOSE);
 					
 					
 				}, TIME_LOADING_OPEN);
@@ -154,10 +160,10 @@
 			function carregarCotacoesOpcoes(ehCall, verificarCache) {
 				//var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
 				var codigoAtivo = $('#codigoAtivo').val().toUpperCase();
-				if (codigoAtivo != 'PETR4' && codigoAtivo != 'VALE5' && codigoAtivo != 'BBAS3') {
-					alert('Só é possível recuperar as opções da ação PETR4 ou VALE5 ou BBAS3');
-					return;
-				}
+				//if (codigoAtivo != 'PETR4' && codigoAtivo != 'VALE5' && codigoAtivo != 'BBAS3') {
+				//	alert('Só é possível recuperar as opções da ação PETR4 ou VALE5 ou BBAS3');
+				//	return;
+				//}
 			    openLoading();
 				setTimeout(function() {
                     //var codigoAtivo = document.getElementById('codigoAtivo').value.toUpperCase();
@@ -320,6 +326,10 @@
 						setTimeout(closeLoading, TIME_LOADING_CLOSE);
 						atualizarCotacoesOpcoes();
 					
+					}, function(err) {
+						console.log('Erro em adicionarCotacaoOpcao:');
+						console.log(err);
+						setTimeout(closeLoading, TIME_LOADING_CLOSE);
 					});
 				
 				}, TIME_LOADING_OPEN);
@@ -477,20 +487,18 @@
             }
 
             function getVE(precoAcao, cotacaoOpcao) {
-                var VI = getVI(precoAcao, cotacaoOpcao);
-                //var valorOpcao = Number(cotacaoOpcao.fechamento.replace(",","."));
+                var precoAcao = Number(precoAcao.replace(",","."));
+				var precoExercicioOpcao = cotacaoOpcao.precoExercicio;
 				var valorOpcao = cotacaoOpcao.fechamento;
-				//calcula o VE
-                return valorOpcao - VI > 0.0 ? valorOpcao - VI : 0.0;
+				var tipoOpcao = cotacaoOpcao.ehCall ? 'call' : 'put';
+                return bs.getVE(precoAcao, precoExercicioOpcao, valorOpcao, tipoOpcao);
             }
 
             function getVI(precoAcao, cotacaoOpcao) {
-                precoAcao = Number(precoAcao.replace(",","."));
+                var precoAcao = Number(precoAcao.replace(",","."));
 				var precoExercicioOpcao = cotacaoOpcao.precoExercicio;
-				
 				var tipoOpcao = cotacaoOpcao.ehCall ? 'call' : 'put';
-				return bs.getVI(precoAcao, precoExercicioOpcao);
-                
+				return bs.getVI(precoAcao, precoExercicioOpcao, tipoOpcao);
             }
 
             function getVolatilidade(precoAcao, cotacaoOpcao, qtdDiasVenc) {
@@ -620,7 +628,7 @@
 				}
 				
 				var dados = [];
-				for (var i = 70; i >= 10; i-=5) {
+				for (var i = 60; i >= 10; i-=5) {
 					dados.push({        
 						type: "line",
 						showInLegend: true,
@@ -725,8 +733,8 @@
                     </tbody>
                 </table>
                 <br/><br/>
-				<p><b>PR - </b> Preço atual da opção.<b>(NÃO é o preço em tempo real)</b></p>
-				<p><b>VR - </b> Valor de Risco considerando a volatilidade implícita e o prazo da opção.</p>
+				<p><b>PR - </b> Preço atual da opção.<b>(OBS: NÃO é o preço em tempo real)</b></p>
+				<p><b>VR - </b> Valor de Risco considerando a volatilidade implícita (1º desvio padrão) e o prazo da opção.</p>
             </div>
 		</div>
 	</div>

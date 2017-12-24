@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/dimens.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/dimens.xml -->
     <eat-comment/>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.6/res/values/values.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.6/res/values/values.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">10260000</integer>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Stock Options Analysis</string>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.6/res/values/values.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/10.2.6/res/values/values.xml -->
     <eat-comment/>
     <string name="common_google_play_services_unknown_issue"><ns1:g id="app_name">%1$s</ns1:g> is having trouble with Google Play services. Please try again.</string>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/10.2.6/res/values/values.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/build/intermediates/exploded-aar/com.google.firebase/firebase-messaging/10.2.6/res/values/values.xml -->
     <eat-comment/>
     <string name="fcm_fallback_notification_channel_label">Miscellaneous</string>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="sair">Sair</string>
-    <!-- From: file:/C:/LYNTON/WORSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/LYNTON/WORKSPACE-GIT/stockoptionsanalysis/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
