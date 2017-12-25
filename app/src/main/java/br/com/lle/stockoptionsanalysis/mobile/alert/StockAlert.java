@@ -45,6 +45,7 @@ public class StockAlert {
 
         //PETR4 - https://cotacoes.economia.uol.com.br/ws/asset/484/intraday
         //VALE5 - https://cotacoes.economia.uol.com.br/ws/asset/687/intraday
+        /*
         String conteudo = HTTPSata.GET("https://cotacoes.economia.uol.com.br/ws/asset/484/intraday", null);
         Long tempoEmMillis = Long.parseLong(conteudo.substring(17, 30));
         BigDecimal preco = new BigDecimal(conteudo.substring(39, 44).replaceAll(",", ""));
@@ -58,6 +59,7 @@ public class StockAlert {
             msg = "PETR4 - " + dateFormat.format(timestamp) + " - " + preco.toString();
             emitAlert("Alerta: ", msg);
         }
+        */
         /*
         List<AlertaStop> ass = Constants.gson.fromJson(JSON_ALERTAS_STOP, new TypeToken<List<AlertaStop>>(){}.getType());
         if (ass != null) {

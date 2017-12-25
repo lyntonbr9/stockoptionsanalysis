@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.lle.stockoptionsanalysis"
-    android:versionCode="18"
-    android:versionName="1.17" >
+    android:versionCode="21"
+    android:versionName="1.20" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -53,8 +53,9 @@
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-            -->
+
         <service android:name=".mobile.service.StockOptionsService" />
+        -->
 
         <service android:name=".mobile.messages.SOAFirebaseMessagingService" >
             <intent-filter>

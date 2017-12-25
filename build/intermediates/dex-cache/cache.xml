@@ -2,116 +2,116 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\zcja\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.1\2a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0\gson-2.8.1.jar"
+        jar="C:\Users\lynton-notebook\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.1\2a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0\gson-2.8.1.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="02a8e0aa38a2e21cb39e2f5a7d6704cbdc941da0">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\gson-2.8.1-490878c7c78edc052d95caf36cdc6ecf209621c9.jar" />
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\gson-2.8.1-feb3105009dce029475426fddece646b1b00a25c.jar" />
     </item>
     <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\libs\sata-alert.jar"
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="d54aec93b8c90d7f3394f6f6fdf30914e722647d">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-alert-6d7250207ec974a4c4440a20fa7c29406af80ad4.jar" />
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-e660a8c7d4220264de6f78f492c1601b006148fb.jar" />
     </item>
     <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-0464487f8fd9fb19d90c762499d23af508eb5798.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-dea1358b41cff949637b45394cf5a8eabc3fa999.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.6\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="900a290779cdb4eb2e63b6f7806fd9f30ce4f60d">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-63be70abc6752c2d49097d968434f9729d262cbe.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.6\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="9ff5114aff3bfb387577ba92a11408dcf0441c24">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-0acb1e760b2d8691d9ccc461815c0d120c1315c9.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\classes.jar"
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-05d039b9c190a15bc45e902eeb53ba7e9a6a2926.jar" />
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-cfc234d4f5ccf917337e3f156556a4a9b3d7378b.jar" />
     </item>
     <item
         jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\support-annotations-25.2.0-9e24f7f490ed7547b7a2f62d633493984da9695f.jar" />
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\support-annotations-25.2.0-9e24f7f490ed7547b7a2f62d633493984da9695f.jar" />
     </item>
     <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-c17fc92680d86d592e08f8eb46a649326065f7e4.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.6\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="69e74a8b1cbf5b8ee0fc0cca6bab1ac6c45efef8">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-a24dc3696a9ff9e21604b7702a2b5736ba881839.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-6392bc7f2a6c95ec62a767353e5c3de1f65efbb2.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.6\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0a534044236cf81b002604643d23e7ca56bd1ee0">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-52c15e702ac5adf127af70f9c4974136ee7cfaa8.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-6f6ab6a9f55538455b10ed9639e5d53c0d4e11c3.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\libs\sata-util.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="3c76cb456fdeddd67ef85b42b9e03ee03f05cb71">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-util-475751d36aaa6e756e51b055571e5c956a12a597.jar" />
-    </item>
-    <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\libs\sata-mobile-core.jar"
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\libs\sata-mobile-core.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="b3bff6921555517b8ae92a2b52d0b8e00bc51f1b">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\sata-mobile-core-93b1e1e0295b73b8ba4b374ce87df53caf0f06f3.jar" />
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-mobile-core-005132e10658cab6b7adf6ab8a77b76554af52de.jar" />
     </item>
     <item
-        jar="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\10.2.6\classes.jar"
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-7badda9f09ab7586a42f9cefd98c7519150ef13e.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\libs\sata-util.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3c76cb456fdeddd67ef85b42b9e03ee03f05cb71">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-util-fe1eb5bc5cf04d66dec0b7fe829faf223c5e1efb.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\libs\sata-alert.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d54aec93b8c90d7f3394f6f6fdf30914e722647d">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\sata-alert-b4d0c9f45db900cdf0f073944b8499e107889ee8.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\10.2.6\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="8f83a631abfdb790591a720e0cfb5f41329831c3">
-        <dex dex="C:\LYNTON\WORSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\debug\classes-43814d408ca8165fd26a0b84e981309962f7673e.jar" />
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-0519244981706ea5ce0d32624338772f27d3d5ad.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.2.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="900a290779cdb4eb2e63b6f7806fd9f30ce4f60d">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-864eb3910fe041f8ab3facf4020233da8372d8e9.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-common\10.2.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0a534044236cf81b002604643d23e7ca56bd1ee0">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-771b215f14a6fc2988b81c50b46aeeaa0b0ebae7.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.2.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="69e74a8b1cbf5b8ee0fc0cca6bab1ac6c45efef8">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-3b61167df019cb31961084a4fba167b710e24709.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-46affb9dcff7d757421880b628d93ed221bd7000.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-a548c2a000436449c9fd71c1f9cfd3ec3bcada7f.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-512d02acc206e95e53ff0622970def1d840f9e15.jar" />
+    </item>
+    <item
+        jar="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\10.2.6\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9ff5114aff3bfb387577ba92a11408dcf0441c24">
+        <dex dex="D:\LYNTON\WORKSPACE-GIT\stockoptionsanalysis\app\build\intermediates\pre-dexed\release\classes-1d51117bb5626cdc410406277e96bdf2f4bb2a0c.jar" />
     </item>
 
 </items>

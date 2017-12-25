@@ -53,7 +53,7 @@ public class StockOptionsVWMainActivity extends Activity {
         if (savedInstanceState == null) {
             //this.webView.loadUrl("file:///android_asset/teste-js.html");
             this.webView.loadUrl("file:///android_asset/principal-professional.html");
-            //this.webView.loadUrl("file:///android_asset/principal.html");
+            //this.webView.loadUrl("file:///android_asset/principal-DEPRECATED.html");
         }
 			
 	}

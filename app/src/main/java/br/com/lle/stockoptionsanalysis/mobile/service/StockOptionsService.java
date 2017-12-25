@@ -21,7 +21,7 @@ public class StockOptionsService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-
+        /*
         Calendar dataAtual = Calendar.getInstance();
 
         StockAlert sa = new StockAlert(this);
@@ -37,6 +37,7 @@ public class StockOptionsService extends IntentService {
             e.printStackTrace();
             logError(e.getMessage());
         }
+        */
     }
 
 }
