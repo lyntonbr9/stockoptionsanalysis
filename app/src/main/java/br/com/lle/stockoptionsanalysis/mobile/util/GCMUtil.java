@@ -12,6 +12,7 @@ import static br.com.lle.stockoptionsanalysis.mobile.util.LogUtil.logError;
 /**
  * Created by lynton on 25/01/2015.
  */
+@Deprecated
 public final class GCMUtil {
 
     public static final String PROJECT_NUMBER = "508117163167";

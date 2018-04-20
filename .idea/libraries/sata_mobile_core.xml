@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="sata-mobile-core">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/sata-mobile-core.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

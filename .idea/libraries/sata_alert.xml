@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="sata-alert">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/app/libs/sata-alert.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -106,9 +106,14 @@
 					
 					// processa para ver qual eh o registro do dispositivo
 					if (codigoAtivo.toUpperCase() == 'REGID') {
-						//var registroDispositivo = JSInterface...
-						//$('#regID').html(registroDispositivo);
+						var registroDispositivo = soa.getRegID();
+						$('#regID').html(registroDispositivo);
 						$('#regID').show();
+						setTimeout(closeLoading, TIME_LOADING_CLOSE);
+						return;
+					} else {
+						$('#regID').html('');
+						$('#regID').hide();
 					}
 					
 					var promessa;

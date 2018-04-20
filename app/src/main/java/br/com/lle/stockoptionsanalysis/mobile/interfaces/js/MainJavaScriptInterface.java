@@ -1,7 +1,10 @@
 package br.com.lle.stockoptionsanalysis.mobile.interfaces.js;
 
 import android.app.Activity;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -65,15 +68,28 @@ public class MainJavaScriptInterface {
 	public String getCotacao(String ativo) {
 		try {
 			IBuscaCotacao bc = new PregaoBVMFBuscaCotacao();
-            if (ativo.equalsIgnoreCase("REGID"))
-                return GCMUtil.getGCMRegID(activity.getApplicationContext());
 			return bc.getCotacao(ativo);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "-9999,99";
 	}
-	
+
+	@JavascriptInterface
+	public String getRegID() {
+		try {
+
+			String token = FirebaseInstanceId.getInstance().getToken();
+			Log.e(MainJavaScriptInterface.class.getName() + "/FirebaseInstanceId", token);
+			return token;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "NULO";
+	}
+
+
 	@JavascriptInterface
 	public String getPrecoOpcao(boolean ehCall, double precoAcao, double precoExerc, 
 			int qtdDiasVenc, double volatilidade, double taxaJuros) {

@@ -26,6 +26,12 @@ if(!soa) {
 				//return '14.94';
 			}
         },
+        getRegID: function() {
+            if (/Android|Mobile/i.test(navigator.userAgent))
+                return window.JSInterface.getRegID();
+             else
+                return 'NAO ESTA RODANDO NO DISPOSITIVO';
+        },
 		
         getCotacoesOpcoes: function(codigoAtivo, ehCall) {
 			//if (IS_MOBILE_RUNNING)

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 18
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 23
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         applicationId "br.com.lle.stockoptionsanalysis"
         minSdkVersion 16
-        targetSdkVersion 18
+        targetSdkVersion 23
     }
 
     buildTypes {
@@ -19,11 +19,25 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:18.0.0'
-    compile 'com.google.code.gson:gson:2.8.1'
-    compile 'com.google.firebase:firebase-messaging:10.2.6'
+    implementation 'com.android.support:support-v4:23.0.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.firebase:firebase-messaging:12.0.0'
+    implementation 'com.google.firebase:firebase-core:12.0.0'
+    implementation files('libs/sata-mobile-core.jar')
+    implementation files('libs/sata-alert.jar')
+    implementation files('libs/sata-util.jar')
+    /*
+                                    compile 'com.android.support:support-v4:18.0.0'
+                                    compile 'com.google.code.gson:gson:2.8.1'
+                                    //compile 'com.google.firebase:firebase-messaging:10.2.6'
+                                    compile 'com.google.firebase:firebase-messaging:12.0.0'
 
-    compile files('libs/sata-mobile-core.jar')
-    compile files('libs/sata-alert.jar')
-    compile files('libs/sata-util.jar')
+                                    compile 'com.google.firebase:firebase-core:12.0.0'
+
+                                    compile files('libs/sata-mobile-core.jar')
+                                    compile files('libs/sata-alert.jar')
+                                    compile files('libs/sata-util.jar')
+                                    */
 }
+
+apply plugin: 'com.google.gms.google-services'

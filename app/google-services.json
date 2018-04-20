@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "508117163167",
+    "firebase_url": "https://satacode-gcm-project.firebaseio.com",
+    "project_id": "satacode-gcm-project"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508117163167:android:7b1e70318c97e620",
+        "android_client_info": {
+          "package_name": "br.com.lle.stockoptionsanalysis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508117163167-5r498cq8cp1tlsls48ok3t0mq36ec9rq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.lle.stockoptionsanalysis",
+            "certificate_hash": "5b62479e50039fc8349a827bb5a5d25f772e9bef"
+          }
+        },
+        {
+          "client_id": "508117163167-0rcp1e7h0e6mo1jorhcet8p3nhq1nc3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtssOiOV8bMZkUNaKwnyqkIfqGGDEwu9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508117163167-0rcp1e7h0e6mo1jorhcet8p3nhq1nc3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
